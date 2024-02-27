@@ -38,7 +38,7 @@ export function useUser() {
   const context = useContext(UserContext);
 
   if (context === null) {
-    throw new Error("useTheme must be used with in ThemeProvider");
+    throw new Error("useTheme must be used with in UserProvider");
   }
 
   return context;

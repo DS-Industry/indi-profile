@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import SuccessPage from "./pages/SuccessPage.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
+import { UserProvider } from "./context/UserProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Suspense fallback="...is loading">
-      <RouterProvider router={router} />
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </Suspense>
   </React.StrictMode>
 );
