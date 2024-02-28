@@ -11,24 +11,52 @@ interface IUserContext {
       email: string;
     } | null
   ) => void;
+  getUser: () => {
+    name: string | null;
+    email: string;
+  } | null;
 }
 
 const UserContext = createContext<IUserContext | null>(null);
 
+function getSessionStorageOrDefault(key: string, defaultValue: null) {
+  const stored = sessionStorage.getItem(key);
+  if (!stored) {
+    return defaultValue;
+  }
+  return JSON.parse(stored);
+}
+
 export function UserProvider({ children }: { children: React.ReactNode }) {
+  const store = sessionStorage;
   const [user, setUser] = useState<{
     name: string | null;
     email: string;
-  } | null>(null);
+  } | null>(getSessionStorageOrDefault("user", null));
 
-  const handleUserChange = () => {};
+  const handleUserChange = () => {
+    store.setItem("user", JSON.stringify(user));
+  };
+
+  const getUser = () => {
+    const storedUser = store.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      return JSON.parse(storedUser);
+    }
+    return null;
+  };
 
   useEffect(() => {
-    handleUserChange();
+    if (!user) {
+      handleUserChange();
+    }
   }, [user]);
 
+  useEffect(() => {});
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, getUser }}>
       {children}
     </UserContext.Provider>
   );

@@ -6,6 +6,8 @@ interface AuthInput {
   icon: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required: boolean;
+  name: string;
+  value: string;
 }
 
 export default function AuthInput({
@@ -14,6 +16,8 @@ export default function AuthInput({
   icon,
   handleChange,
   required,
+  name,
+  value,
 }: AuthInput) {
   return (
     <div className=" w-full flex flex-row  items-start">
@@ -24,6 +28,8 @@ export default function AuthInput({
           placeholder={placeholder}
           onChange={handleChange}
           required={required}
+          name={name}
+          value={value}
           className=" min-h-[32px] text-lg w-full h-full font-inter-light placeholder:font-inter-light placeholder:text-sm placeholder:text-white-400 focus:outline-none"
         />
       </div>

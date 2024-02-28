@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  box-sizing: border-box;
+}
+
 .font-inter-light {
   font-family: "Inter Light";
 }

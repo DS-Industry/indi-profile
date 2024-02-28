@@ -1,16 +1,20 @@
+import SubscriptionCard from "../components/cards/SubscribtionCard";
+import GeneralLayout from "../layouts/GeneralLayout";
+
 export default function MainPage() {
+  const items = [
+    { name: "S", price: "150" },
+    { name: "S", price: "150" },
+    { name: "S", price: "150" },
+    { name: "S", price: "150" },
+  ];
   return (
-    <>
-      <div className=" bg-slate-400"></div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+    <GeneralLayout>
+      <div className=" mb-[30px] min-h-fit">
+        {items.map((item) => (
+          <SubscriptionCard name={item.name} price={item.price} />
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </GeneralLayout>
   );
 }
