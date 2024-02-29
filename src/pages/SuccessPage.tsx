@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import SuccessCard from "../assets/success_cofirmation.svg";
 import MainButton from "../components/Buttons/MainButton";
 
 export default function SuccessPage() {
+  const navigate = useNavigate();
   const handleClick = () => {};
   return (
     <>
@@ -16,12 +18,9 @@ export default function SuccessPage() {
           <p className=" font-inter-light">Your payment is confirmed.</p>
         </div>
         <div className=" w-full flex flex-col justify-center items-center">
-          <p className=" font-inter-light text-center">
-            You can find your ticket on your mail.
-          </p>
           <MainButton
             title={"NICE!"}
-            handleClick={handleClick}
+            handleClick={() => navigate("/")}
             value={""}
             additionalStyles={" bg-primary-500 text-white-500 w-full"}
           />

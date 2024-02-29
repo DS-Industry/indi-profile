@@ -38,11 +38,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Suspense fallback="...is loading">
-      <UserProvider>
-        <RouterProvider router={router} />
-      </UserProvider>
-    </Suspense>
-  </React.StrictMode>
+  <Suspense fallback="...is loading">
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  </Suspense>
 );

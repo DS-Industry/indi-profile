@@ -2,6 +2,11 @@
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      xs: "320px",
+      sm: "640px",
+      md: "768px",
+    },
     colors: {
       white: {
         400: "#C2C2C2",
@@ -29,7 +34,11 @@ export default {
         600: "#0073A4",
       },
     },
-    extend: {},
+    extend: {
+      animation: {
+        "spin-slow": "spin 750ms linear infinite",
+      },
+    },
   },
   plugins: [],
 };

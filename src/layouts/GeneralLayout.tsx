@@ -12,7 +12,6 @@ export default function GeneralLayout({
 }) {
   const location = useLocation();
 
-  console.log(location.pathname);
   const navigate = useNavigate();
   const handleRoute = () => {
     if (location.pathname.includes("profile")) {
@@ -29,7 +28,7 @@ export default function GeneralLayout({
           <img
             src={LogoTitle}
             alt="logo"
-            className="pl-5 object-contain max-w-[180px]"
+            className="pl-5 object-contain md:max-w-[180px] sm:max-w-[180px] xs:max-w-[150px]"
           />
         </div>
         <div className="flex items-center gap-5">
@@ -50,7 +49,7 @@ export default function GeneralLayout({
           </a>
         </div>
       </nav>
-      <section className="flex w-full h-full flex-col px-[30px] min-h-fit ">
+      <section className="flex flex-grow w-full flex-col px-[30px] ">
         {children}
       </section>
       <footer className=" bg-white-700 ">

@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../context/UserProvider";
 import api from "../api";
+import { AxiosResponse } from "axios";
+import MainLoader from "../components/loaders/MainLoader";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -19,6 +21,8 @@ export default function LoginPage() {
     phone: "",
     password: "",
   });
+  const [isValid, setIsValid] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevVal) => {
@@ -30,23 +34,35 @@ export default function LoginPage() {
   };
   const handleClick = () => {
     const loginAsync = async () => {
+      setIsLoading(true);
       try {
-        console.log(userData);
-        const response = await api.post("auth/login", {
-          data: { ...userData },
-        });
+        const {
+          data: { data },
+        }: AxiosResponse<{ data: { client: any; tokens: any; type: string } }> =
+          await api.post("auth/login", { ...userData });
 
-        console.log(response.data);
+        const user = {
+          client: data.client,
+          tokens: data.tokens,
+        };
+        console.log(user);
+
+        setUser(user);
+        setIsLoading(false);
+        navigate("/");
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
-    loginAsync();
+    if (isValid) {
+      loginAsync();
+    }
   };
 
   return (
     <AuthLayout>
-      <div className=" flex flex-col items-center w-full gap-5">
+      <div className={` flex flex-col items-center w-full gap-5`}>
         <AuthInput
           type={"phone"}
           placeholder={"phone"}
@@ -55,6 +71,9 @@ export default function LoginPage() {
           required={false}
           name={"phone"}
           value={userData.phone}
+          regexp={/^\+91(\d{10})$/}
+          handleValidation={setIsValid}
+          validationMessage="Phone must start on +91 and be no less than 13 digits"
         />
         <AuthInput
           type={"password"}
@@ -64,13 +83,25 @@ export default function LoginPage() {
           required={false}
           name={"password"}
           value={userData.password}
+          regexp={/.{6,}/}
+          handleValidation={setIsValid}
+          validationMessage="Password must be no less than 6 digits"
         />
         <MainButton
-          title={"LOGIN"}
+          title={
+            !isLoading ? (
+              "LOGIN"
+            ) : (
+              <MainLoader
+                additionalStyles={" w-8 h-8 "}
+                insideStyles={"bg-primary-500 w-6 h-6"}
+              />
+            )
+          }
           handleClick={handleClick}
           value={""}
           additionalStyles={
-            " bg-primary-500 text-white-500 text-base w-2/3 mt-[20px]"
+            " bg-primary-500 text-white-500 text-base w-2/3 mt-[20px] flex items-center justify-center"
           }
         />
       </div>

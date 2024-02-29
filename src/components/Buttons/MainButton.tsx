@@ -4,7 +4,7 @@ export default function MainButton({
   value,
   additionalStyles,
 }: {
-  title: string;
+  title: string | React.ReactNode;
   handleClick: (value: string) => void;
   value: string;
   additionalStyles: string;
