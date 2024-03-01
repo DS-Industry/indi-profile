@@ -6,7 +6,7 @@ import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../layouts/AuthLayout";
 import AuthInput from "../components/inputs/AuthInput";
 import { useUser } from "../context/UserProvider";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import MainLoader from "../components/loaders/MainLoader";
@@ -17,7 +17,7 @@ export default function RegistrationPage() {
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState<string>("");
   const [userData, setUserData] = useState<{
     phone: string;
     password: string;
@@ -43,13 +43,17 @@ export default function RegistrationPage() {
           subscribe: null,
         };
 
-        console.log(user);
-
         setUser(user);
         setIsLoading(false);
         navigate("/");
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+          setIsError(
+            error.response?.data.code === 7
+              ? "Wrong phone number or password"
+              : "Something went wrong"
+          );
+        }
         setIsLoading(false);
       }
     };
@@ -70,7 +74,7 @@ export default function RegistrationPage() {
   useEffect(() => {
     if (isError) {
       const timeOutId = setTimeout(() => {
-        setIsError(false);
+        setIsError("");
       }, 3000);
       return () => {
         clearTimeout(timeOutId);
@@ -149,7 +153,7 @@ export default function RegistrationPage() {
       {isError && (
         <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
           <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
-            <Toast title={"Ooops..."} body={"Something went wrong."} />
+            <Toast title={"Ooops..."} body={isError} />
           </div>
         </div>
       )}

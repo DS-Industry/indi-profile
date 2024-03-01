@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../context/UserProvider";
 import api from "../api";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import MainLoader from "../components/loaders/MainLoader";
 import { Subscribe, User } from "../types";
 import Toast from "../components/toast/Toast";
@@ -25,7 +25,7 @@ export default function LoginPage() {
   });
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState<string>("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevVal) => {
@@ -70,9 +70,14 @@ export default function LoginPage() {
           navigate("/profile");
         }
       } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+          setIsError(
+            error.response?.data.code === 7
+              ? "Wrong phone number or password"
+              : "Something went wrong"
+          );
+        }
         setIsLoading(false);
-        setIsError(true);
       }
     };
     if (isValid) {
@@ -83,7 +88,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (isError) {
       const timeOutId = setTimeout(() => {
-        setIsError(false);
+        setIsError("");
       }, 3000);
       return () => {
         clearTimeout(timeOutId);
@@ -148,7 +153,7 @@ export default function LoginPage() {
       {isError && (
         <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
           <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
-            <Toast title={"Ooops..."} body={"Something went wrong."} />
+            <Toast title={"Ooops..."} body={isError} />
           </div>
         </div>
       )}

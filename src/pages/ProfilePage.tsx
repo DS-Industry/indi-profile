@@ -6,13 +6,14 @@ import { useEffect, useState } from "react";
 import MainLoader from "../components/loaders/MainLoader";
 import api from "../api";
 import Toast from "../components/toast/Toast";
+import axios from "axios";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { user, getUser, clearUser, setUser } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isPayLoading, setIsPayLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState<string>("");
   const handleClick = () => {
     navigate("/");
   };
@@ -56,7 +57,9 @@ export default function ProfilePage() {
           setUser(updatedUser);
           setIsLoading(false);
         } catch (error) {
-          console.log(error);
+          if (axios.isAxiosError(error)) {
+            setIsError("Something went wrong");
+          }
           //navigate('/auth/singin');
           setIsLoading(false);
         }
@@ -68,7 +71,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (isError) {
       const timeOutId = setTimeout(() => {
-        setIsError(false);
+        setIsError("");
       }, 3000);
       return () => {
         clearTimeout(timeOutId);
@@ -241,13 +244,13 @@ export default function ProfilePage() {
           </div>
         </>
       )}
-      {/*       {isError && (
+      {isError && (
         <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
           <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
-            <Toast title={"Ooops..."} body={"Something went wrong."} />
+            <Toast title={"Ooops..."} body={isError} />
           </div>
         </div>
-      )} */}
+      )}
     </GeneralLayout>
   );
 }
