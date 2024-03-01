@@ -19,4 +19,14 @@ export type User = {
     refreshToken: string;
     refreshTokenExp: Date;
   };
+  subscribe: Subscribe;
+} | null;
+
+export type Subscribe = {
+  amount: number;
+  dateDebiting: Date;
+  name: string;
+  status: "active" | "close" | "created";
+  subscribeId: string;
+  payUrl?: string;
 } | null;

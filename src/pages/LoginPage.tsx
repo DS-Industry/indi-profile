@@ -4,11 +4,13 @@ import Lock from "../assets/Lock_icon.svg";
 import Mail from "../assets/Message_icon.svg";
 import MainButton from "../components/Buttons/MainButton";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../context/UserProvider";
 import api from "../api";
 import { AxiosResponse } from "axios";
 import MainLoader from "../components/loaders/MainLoader";
+import { Subscribe, User } from "../types";
+import Toast from "../components/toast/Toast";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ export default function LoginPage() {
   });
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevVal) => {
@@ -37,28 +40,56 @@ export default function LoginPage() {
       setIsLoading(true);
       try {
         const {
-          data: { data },
+          data: {
+            data: { client, tokens },
+          },
         }: AxiosResponse<{ data: { client: any; tokens: any; type: string } }> =
           await api.post("auth/login", { ...userData });
 
-        const user = {
-          client: data.client,
-          tokens: data.tokens,
-        };
-        console.log(user);
+        const {
+          data: { data: subscribe },
+        }: AxiosResponse<{ data: Subscribe }> = await api.get(
+          "subscribe/subInfo",
+          {
+            headers: {
+              Authorization: `Bearer ${tokens.accessToken}`,
+            },
+          }
+        );
 
+        const user: User = {
+          client: client,
+          tokens: tokens,
+          subscribe: subscribe,
+        };
         setUser(user);
         setIsLoading(false);
-        navigate("/");
+        if (!subscribe) {
+          navigate("/");
+        } else {
+          navigate("/profile");
+        }
       } catch (error) {
         console.log(error);
         setIsLoading(false);
+        setIsError(true);
       }
     };
     if (isValid) {
       loginAsync();
     }
   };
+
+  useEffect(() => {
+    if (isError) {
+      const timeOutId = setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+      return () => {
+        clearTimeout(timeOutId);
+      };
+    }
+  }, [isError]);
 
   return (
     <AuthLayout>
@@ -101,7 +132,7 @@ export default function LoginPage() {
           handleClick={handleClick}
           value={""}
           additionalStyles={
-            " bg-primary-500 text-white-500 text-base w-2/3 mt-[20px] flex items-center justify-center"
+            " bg-primary-500 text-white-500 text-base md:w-1/2 sm:w-1/2 xs:w-full mt-[20px] flex items-center justify-center"
           }
         />
       </div>
@@ -114,6 +145,13 @@ export default function LoginPage() {
           Sign Up!
         </span>
       </p>
+      {isError && (
+        <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
+          <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
+            <Toast title={"Ooops..."} body={"Something went wrong."} />
+          </div>
+        </div>
+      )}
     </AuthLayout>
   );
 }

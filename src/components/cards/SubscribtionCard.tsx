@@ -104,9 +104,7 @@ export default function SubscriptionCard({
             </div>
           )
         }
-        handleClick={() => {
-          setIsLoading(true);
-        }}
+        handleClick={handleUpgradePlan}
         value={id}
         additionalStyles={
           " bg-primary-500 text-white-500 font-inter-light mt-3 min-w-full"

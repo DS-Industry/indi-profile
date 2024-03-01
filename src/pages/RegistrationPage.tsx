@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Lock from "../assets/Lock_icon.svg";
 import Mail from "../assets/Message_icon.svg";
 /* import LetterA from "../assets/A.svg"; */
@@ -10,12 +10,14 @@ import { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import MainLoader from "../components/loaders/MainLoader";
+import Toast from "../components/toast/Toast";
 
 export default function RegistrationPage() {
   const { setUser } = useUser();
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const [userData, setUserData] = useState<{
     phone: string;
     password: string;
@@ -38,6 +40,7 @@ export default function RegistrationPage() {
         const user = {
           client: data.client,
           tokens: data.tokens,
+          subscribe: null,
         };
 
         console.log(user);
@@ -63,6 +66,17 @@ export default function RegistrationPage() {
       };
     });
   };
+
+  useEffect(() => {
+    if (isError) {
+      const timeOutId = setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+      return () => {
+        clearTimeout(timeOutId);
+      };
+    }
+  }, [isError]);
 
   return (
     <AuthLayout>
@@ -117,19 +131,28 @@ export default function RegistrationPage() {
             !isLoading ? (
               "CREATE ACCOUNT"
             ) : (
-              <MainLoader
-                additionalStyles={" w-8 h-8 "}
-                insideStyles={"bg-primary-500 w-6 h-6"}
-              />
+              <div className=" w-full h-full flex justify-center items-center">
+                <MainLoader
+                  additionalStyles={" w-8 h-8 "}
+                  insideStyles={"bg-primary-500 w-6 h-6"}
+                />
+              </div>
             )
           }
           handleClick={handleClick}
           value={""}
           additionalStyles={
-            " bg-primary-500 text-white-500 text-base w-2/3 mt-5"
+            " bg-primary-500 text-white-500 text-base md:w-1/2 sm:w-1/2 xs:w-full mt-5"
           }
         />
       </div>
+      {isError && (
+        <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
+          <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
+            <Toast title={"Ooops..."} body={"Something went wrong."} />
+          </div>
+        </div>
+      )}
     </AuthLayout>
   );
 }

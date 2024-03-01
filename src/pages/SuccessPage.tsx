@@ -4,7 +4,6 @@ import MainButton from "../components/Buttons/MainButton";
 
 export default function SuccessPage() {
   const navigate = useNavigate();
-  const handleClick = () => {};
   return (
     <>
       <div className=" flex flex-col min-h-screen min-w-screen items-center justify-between pt-[100px] pb-[20px] px-[20px]">

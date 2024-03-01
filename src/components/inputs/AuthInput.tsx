@@ -47,7 +47,7 @@ export default function AuthInput({
   }, [value]);
   const [isValid, setIsValid] = useState<boolean>(true);
   return (
-    <div className=" w-full">
+    <div className=" w-full md:w-1/2 sm:w-1/2 xs:w-full">
       <div className=" w-full flex flex-row items-start">
         <div
           className={`transition-all duration-300 flex flex-row items-center gap-3 border p-3 w-full mt-2 rounded-lg ${

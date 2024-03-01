@@ -22,7 +22,7 @@ export default function GeneralLayout({
   };
 
   return (
-    <main className="w-screen min-h-screen flex flex-col justify-between">
+    <main className="w-screen min-h-screen flex flex-col justify-between box-border">
       <nav className=" bg-white-700 w-full flex justify-between items-center mx-auto min-h-[60px] px-[10px]">
         <div className="inline-flex">
           <img

@@ -6,6 +6,7 @@ import { AxiosResponse } from "axios";
 import api from "../api";
 import MainLoader from "../components/loaders/MainLoader";
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/toast/Toast";
 
 interface Plan {
   id: string;
@@ -18,6 +19,7 @@ export default function MainPage() {
   const navigate = useNavigate();
   const [plans, setPlans] = useState<Plan[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
     const user = getUser();
@@ -49,6 +51,17 @@ export default function MainPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (isError) {
+      const timeOutId = setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+      return () => {
+        clearTimeout(timeOutId);
+      };
+    }
+  }, [isError]);
+
   return (
     <GeneralLayout>
       {isLoading ? (
@@ -70,6 +83,13 @@ export default function MainPage() {
                 user={user}
               />
             ))}
+        </div>
+      )}
+      {isError && (
+        <div className=" absolute top-2 flex w-auto justify-start items-center z-40 ">
+          <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
+            <Toast title={"Ooops..."} body={"Something went wrong."} />
+          </div>
         </div>
       )}
     </GeneralLayout>
