@@ -26,7 +26,7 @@ export default function SubscriptionCard({
       try {
         const {
           data: {
-            data: { linkForPayment, status },
+            data: { linkForPayment },
           },
         }: AxiosResponse<{ data: { linkForPayment: string; status: string } }> =
           await api.post(
