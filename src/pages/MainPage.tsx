@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SubscriptionCard from "../components/cards/SubscribtionCard";
 import GeneralLayout from "../layouts/GeneralLayout";
 import { useUser } from "../context/UserProvider";
 import axios, { AxiosResponse } from "axios";
@@ -7,6 +6,7 @@ import api from "../api";
 import MainLoader from "../components/loaders/MainLoader";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/toast/Toast";
+import SubscriptionSailCard from "../components/cards/SubscribtionSailCard.tsx";
 
 interface Plan {
   id: string;
@@ -79,12 +79,13 @@ export default function MainPage() {
             plans
               .filter((item) => item.name !== user?.subscribe?.name)
               .map((item, index) => (
-                <SubscriptionCard
+                <SubscriptionSailCard
                   key={index}
                   name={item.name}
                   price={item.amount / 100}
                   id={item.id}
                   user={user}
+                  count={12}
                 />
               ))}
         </div>
