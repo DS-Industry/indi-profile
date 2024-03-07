@@ -7,6 +7,7 @@ import MainLoader from "../loaders/MainLoader";
 
 interface ISubscriptionSailCard {
     name: string;
+    fullPrice: number;
     price: number;
     id: string;
     user: User;
@@ -15,6 +16,7 @@ interface ISubscriptionSailCard {
 
 export default function SubscriptionSailCard({
                                              name,
+                                             fullPrice,
                                              price,
                                              id,
                                              user,
@@ -63,12 +65,20 @@ export default function SubscriptionSailCard({
                     {name}
                     <span className="sr-only">Plan</span>
                 </h2>
-
-                <p className="mt-2 sm:mt-4">
+                <h2 className="text-xl font-inter-bold text-gray">
+                    {count} month
+                    <span className="sr-only">Count</span>
+                </h2 >
+                <p className="mt-2 sm:mt-1">
                     <strong className="text-3xl font-bold text-primary-500 sm:text-4xl">
+                        <span style={{
+                            fontSize: '1.1rem',
+                            color: 'grey',
+                            textDecoration: 'line-through',
+                        }}>{fullPrice} ₹</span>
+                        <br />
                         {price} ₹
                     </strong>
-
                     <span className="text-sm font-medium text-gray-700">/month</span>
                 </p>
             </div>
@@ -90,7 +100,7 @@ export default function SubscriptionSailCard({
                         />
                     </svg>
 
-                    <span className="text-white-900"> ≈11 car washes </span>
+                    <span className="text-white-900"> ≈11 car washes every month </span>
                 </li>
                 <li className="flex items-center gap-1">
                     <svg
@@ -109,24 +119,6 @@ export default function SubscriptionSailCard({
                     </svg>
 
                     <span className="text-white-900"> 40% savings </span>
-                </li>
-                <li className="flex items-center gap-1">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="size-5 text-indigo-700"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4.5 12.75l6 6 9-13.5"
-                        />
-                    </svg>
-
-                    <span className="text-white-900"> {price} points </span>
                 </li>
             </ul>
             <MainButton

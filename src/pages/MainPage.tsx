@@ -82,6 +82,7 @@ export default function MainPage() {
                 <SubscriptionSailCard
                   key={index}
                   name={item.name}
+                  fullPrice={2000}
                   price={item.amount / 100}
                   id={item.id}
                   user={user}
