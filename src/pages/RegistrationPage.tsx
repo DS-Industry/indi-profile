@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Lock from "../assets/Lock_icon.svg";
 import Mail from "../assets/Message_icon.svg";
+import Card from "../assets/Card_icon.svg"
 /* import LetterA from "../assets/A.svg"; */
 import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../layouts/AuthLayout";
@@ -20,11 +21,13 @@ export default function RegistrationPage() {
   const [isError, setIsError] = useState<string>("");
   const [userData, setUserData] = useState<{
     phone: string;
+    uniqNomer: string;
     password: string;
     checkPassword: string;
   }>({
     phone: "",
     password: "",
+    uniqNomer: "",
     checkPassword: "",
   });
 
@@ -51,7 +54,11 @@ export default function RegistrationPage() {
           setIsError(
             error.response?.data.code === 7
               ? "Wrong phone number or password"
-              : "Something went wrong"
+                : (error.response?.data.code === 6
+                  ? "Invalid cw card number"
+                    : (error.response?.data.code === 10
+                      ? "The cw card has already been activated"
+                        : "Something went wrong"))
           );
         }
         setIsLoading(false);
@@ -107,6 +114,18 @@ export default function RegistrationPage() {
           validationMessage="Phone must start on +91 and be no less than 13 digits"
         />
         <AuthInput
+            type={"uniqNomer"}
+            placeholder={"write the cw card number"}
+            icon={Card}
+            name={"uniqNomer"}
+            value={userData.uniqNomer}
+            handleChange={handleChange}
+            required={true}
+            regexp={/.{12,}/}
+            handleValidation={setIsValid}
+            validationMessage="The cw card number must contain 12 digits"
+        />
+        <AuthInput
           type={"password"}
           placeholder={"password"}
           icon={Lock}
@@ -149,6 +168,15 @@ export default function RegistrationPage() {
             " bg-primary-500 text-white-500 text-base md:w-1/2 sm:w-1/2 xs:w-full mt-5"
           }
         />
+        <p className=" font-inter-light text-white-900 text-sm text-center mt-2">
+          Do you already have an account?
+          <span
+              onClick={() => navigate("/auth/signin")}
+              className=" text-primary-500 hover:cursor-pointer"
+          >
+          Log in!
+        </span>
+        </p>
       </div>
       {isError && (
         <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
