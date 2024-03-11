@@ -122,7 +122,7 @@ export default function ProfilePage() {
                           ? " text-white-800"
                           : user?.subscribe?.status === "active"
                           ? "text-primary-500"
-                          : user?.subscribe?.status === "close"
+                          : user?.subscribe?.status === "closed"
                           ? " text-red-300"
                           : " text-white-400"
                       }`}
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                           ? " bg-white-900"
                           : user?.subscribe?.status === "active"
                           ? "bg-primary-500"
-                          : user?.subscribe?.status === "close"
+                          : user?.subscribe?.status === "closed"
                           ? " bg-red-300"
                           : " bg-white-400"
                       }`}
@@ -143,7 +143,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
                 {(user?.subscribe?.status === "created" ||
-                  user?.subscribe?.status === "close") && (
+                  user?.subscribe?.status === "closed") && (
                   <MainButton
                     title={
                       !isPayLoading ? (

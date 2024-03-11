@@ -5,6 +5,12 @@ import MainButton from "../Buttons/MainButton";
 import { useState } from "react";
 import MainLoader from "../loaders/MainLoader";
 
+declare global {
+    interface Window {
+        // ⚠️ notice that "Window" is capitalized here
+        Razorpay: any;
+    }
+}
 interface ISubscriptionSailCard {
     name: string;
     fullPrice: number;
@@ -23,33 +29,68 @@ export default function SubscriptionSailCard({
                                              count,
                                          }: ISubscriptionSailCard) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    function loadScript(src: string) {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.async = true;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    }
+
     const handleUpgradePlan = () => {
-        console.log(user);
+        setIsLoading(true);
+
         const addPlanAsync = async () => {
-            setIsLoading(true);
+            const scriptResponse = await loadScript(
+                "https://checkout.razorpay.com/v1/checkout.js"
+            );
+            if (!scriptResponse) {
+                console.log('Failed to load checkout');
+                alert("Somthing went wrong try again later");
+            }
             try {
-                const {
-                    data: {
-                        data: { linkForPayment },
+                const body = {
+                    planId: id,
+                    totalCount: count
+                };
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${user?.tokens.accessToken}`,
                     },
-                }: AxiosResponse<{ data: { linkForPayment: string; status: string } }> =
-                    await api.post(
-                        "subscribe/create",
-                        {
-                            planId: id,
-                            totalCount: count,
-                        },
-                        {
-                            headers: {
-                                Authorization: `Bearer ${user?.tokens.accessToken}`,
-                            },
-                        }
-                    );
-                console.log(linkForPayment);
-                const linkElem = document.createElement("a");
-                linkElem.href = linkForPayment;
-                linkElem.target = "_blank";
-                linkElem.click();
+                }
+                const response: AxiosResponse = await api.post('subscribe/create', body, config);
+
+                console.log(response.data.data.subId);
+                const options = {
+                    "key": "rzp_live_28uKBwwEso0CLe",
+                    "subscription_id": `${response.data.data.subId}`,
+                    "name": "DSMoy-ka",
+                    "description": "Monthly Car Wash Plan",
+                    "image": "",
+                    "handler": function(response: any) {
+                        alert(response.razorpay_payment_id),
+                            alert(response.razorpay_subscription_id),
+                            alert(response.razorpay_signature);
+                    },
+                    "prefill": {
+                        "email": `${user?.client.email}`,
+                        "contact": `${user?.client.phone}`
+                    },
+                    "theme": {
+                        "color": "#F37254"
+                    }
+                };
+
+                const paymentObject = new window.Razorpay(options);
+                paymentObject.open();
                 setIsLoading(false);
             } catch (error) {
                 console.log(error);
