@@ -46,7 +46,6 @@ export default function MainPage() {
         if (axios.isAxiosError(error)) {
           setIsError("Something went wrong");
         }
-        navigate("/auth/login");
       }
     };
     if (user) {

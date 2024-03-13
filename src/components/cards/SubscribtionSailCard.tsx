@@ -4,6 +4,7 @@ import { User } from "../../types";
 import MainButton from "../Buttons/MainButton";
 import { useState } from "react";
 import MainLoader from "../loaders/MainLoader";
+import Modal from "../modal/CancellationSubscription.tsx";
 
 declare global {
     interface Window {
@@ -29,6 +30,19 @@ export default function SubscriptionSailCard({
                                              count,
                                          }: ISubscriptionSailCard) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
+
+    const closeModal = () => {
+        setShowModal(false);
+    }
+
+    const checkSub = () => {
+        if(user?.subscribe === null){
+            handleUpgradePlan();
+        } else {
+            setShowModal(true);
+        }
+    }
 
     function loadScript(src: string) {
         return new Promise((resolve) => {
@@ -77,8 +91,8 @@ export default function SubscriptionSailCard({
                     "image": "",
                     "handler": function(response: any) {
                         alert(response.razorpay_payment_id),
-                            alert(response.razorpay_subscription_id),
-                            alert(response.razorpay_signature);
+                        alert(response.razorpay_subscription_id),
+                        alert(response.razorpay_signature);
                     },
                     "prefill": {
                         "email": `${user?.client.email}`,
@@ -175,12 +189,17 @@ export default function SubscriptionSailCard({
                         </div>
                     )
                 }
-                handleClick={handleUpgradePlan}
+                handleClick={checkSub}
                 value={id}
                 additionalStyles={
                     " bg-primary-500 text-white-500 font-inter-light mt-3 min-w-full"
                 }
             />
+            <Modal title="Changing your subscription" active={showModal} onClose={closeModal} onSubmit={handleUpgradePlan}>
+                <div>You already have a subscription. Are you sure you want to start a new one?</div>
+                <div>Information about the current subscription can be found in your personal account.</div>
+                <div>In case of confirmation, the remaining points will be deducted and new ones will be credited, in accordance with the selected tariff plan.</div>
+            </Modal>
         </div>
     );
 }
