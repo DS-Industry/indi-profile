@@ -10,6 +10,9 @@ import ErrorPage from "./pages/ErrorPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import { UserProvider } from "./context/UserProvider.tsx";
 import Landing from "./pages/Landing";
+import TermPage from "./pages/TermPage.tsx";
+import PrivacyPage from "./pages/PrivacyPage.tsx";
+import RefundPage from "./pages/RefundPage.tsx";
 
 const router = createHashRouter([
   {
@@ -39,6 +42,18 @@ const router = createHashRouter([
   {
     path: 'home',
     element: <Landing />
+  },
+  {
+    path: 'term',
+    element: <TermPage/>
+  },
+  {
+    path: 'privacy',
+    element: <PrivacyPage/>
+  },
+  {
+    path: 'refund',
+    element: <RefundPage/>
   }
 ]);
 

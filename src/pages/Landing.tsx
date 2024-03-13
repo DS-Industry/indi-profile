@@ -7,35 +7,35 @@ export default function Landing() {
         <UnauthorizedLayout>
             { /* banner */}
             <section
-                class="relative bg-banner-main bg-cover bg-top bg-no-repeat  py-20"
+                className="relative bg-banner-main bg-cover bg-top bg-no-repeat  py-20"
             >
                 <div
-                    class="absolute inset-0 bg-blue-500/35 sm:bg-transparent sm:from-blue-500/75 sm:to-blue-500/15 sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
+                    className="absolute inset-0 bg-blue-500/35 sm:bg-transparent sm:from-blue-500/75 sm:to-blue-500/15 sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
                 ></div>
 
                 <div
-                    class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
+                    className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                 >
-                    <div class="max-w-xl  ltr:sm:text-left rtl:sm:text-right">
-                        <h1 class="text-3xl font-extrabold sm:text-5xl text-white-500">
+                    <div className="max-w-xl  ltr:sm:text-left rtl:sm:text-right">
+                        <h1 className="text-3xl font-extrabold sm:text-5xl text-white-500">
                             DS Moyka & Zixdo
                         </h1>
 
-                        <p class="mt-4 max-w-lg sm:text-xl/relaxed text-white-500">
+                        <p className="mt-4 max-w-lg sm:text-xl/relaxed text-white-500">
                             First self-service car wash chain in India
                         </p>
 
-                        <div class="mt-8 flex flex-wrap gap-4 text-center">
+                        <div className="mt-8 flex flex-wrap gap-4 text-center">
                             <a
                                 href="#"
-                                class="block w-full rounded bg-red-400 px-12 py-3 text-sm font-medium text-white-500 shadow hover:bg-white-500/95 focus:outline-none focus:ring active:bg-white-500 sm:w-auto"
+                                className="block w-full rounded bg-red-400 px-12 py-3 text-sm font-medium text-white-500 shadow hover:bg-white-500/95 focus:outline-none focus:ring active:bg-white-500 sm:w-auto"
                             >
                                 Pay Online
                             </a>
 
                             <a
                                 href="#"
-                                class="block w-full rounded border-white-500 border-2 px-12 py-3 text-sm font-medium text-white-500 shadow hover:bg-white-500/95 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
+                                className="block w-full rounded border-white-500 border-2 px-12 py-3 text-sm font-medium text-white-500 shadow hover:bg-white-500/95 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
                             >
                                 Services
                             </a>

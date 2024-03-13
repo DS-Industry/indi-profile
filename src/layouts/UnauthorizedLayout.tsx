@@ -1,5 +1,4 @@
 import Logo from '../../assets/logo_title.png';
-import LogoSmall from '../../assets/logo_small.png'
 
 
 export default function UnauthorizedLayout({ children }: { children: React.ReactNode; }) {
