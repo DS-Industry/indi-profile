@@ -7,6 +7,7 @@ import MainLoader from "../components/loaders/MainLoader";
 import api from "../api";
 import Toast from "../components/toast/Toast";
 import axios from "axios";
+import Modal from "../components/modal/CancellationSubscription.tsx";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -14,18 +15,52 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isPayLoading, setIsPayLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
   const handleClick = () => {
     navigate("/");
   };
-  const handleStopSubscription = () => {
-    navigate("/");
+  const openModal = () => {
+    setShowModal(true);
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  }
 
   const handleLogout = () => {
     clearUser();
     navigate("/auth/signin");
   };
 
+  const cancellationSubscribe = () => {
+    setIsLoading(true);
+    const user = getUser();
+    if (!user) {
+      navigate("/auth/signin");
+    }
+    const cancellationSub = async () => {
+      try {
+        const resp = await api.post(
+            "subscribe/cancellation", {},
+            {
+              headers: {
+                Authorization: `Bearer ${user?.tokens.accessToken}`,
+              },
+            }
+        );
+        console.log(resp.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        if (axios.isAxiosError(error)) {
+          setIsError("Something went wrong");
+        }
+      }
+    };
+    if (user) {
+      cancellationSub();
+    }
+  }
   const payCurrentSubscribe = () => {
     setIsPayLoading(true);
     const linkElem = document.createElement("a");
@@ -225,13 +260,17 @@ export default function ProfilePage() {
             {user?.subscribe?.status === "active" && (
               <MainButton
                 title={"Stop subscribtion"}
-                handleClick={handleStopSubscription}
+                handleClick={openModal}
                 value={""}
                 additionalStyles={
                   "bg-red-300  text-white-500 mt-5 hover:bg-red-400 transition-all duration-300 max-w-[500px]"
                 }
               />
             )}
+            <Modal title="Cancellation of subscription" active={showModal} onClose={closeModal} onSubmit={cancellationSubscribe}>
+              <div>Are you sure you want to cancel your subscription?</div>
+              <div>In case of cancellation, the remaining points will be withdrawn automatically at the end of the last active billing period.</div>
+            </Modal>
 
             <MainButton
               title={"Log out"}

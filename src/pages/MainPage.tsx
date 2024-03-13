@@ -12,6 +12,7 @@ interface Plan {
   id: string;
   name: string;
   amount: number;
+  fullPrice: number;
 }
 
 export default function MainPage() {
@@ -45,7 +46,6 @@ export default function MainPage() {
         if (axios.isAxiosError(error)) {
           setIsError("Something went wrong");
         }
-        navigate("/auth/login");
       }
     };
     if (user) {
@@ -74,7 +74,7 @@ export default function MainPage() {
           />
         </div>
       ) : (
-        <div className=" my-[30px] min-w-full flex flex-grow justify-start items-start sm:flex-col xs:flex-col md:flex-row gap-5">
+        <div className=" my-[30px] min-w-full flex flex-grow justify-center items-center sm:flex-col xs:flex-col md:flex-row gap-5">
           {plans &&
             plans
               .filter((item) => item.name !== user?.subscribe?.name)
@@ -82,7 +82,7 @@ export default function MainPage() {
                 <SubscriptionSailCard
                   key={index}
                   name={item.name}
-                  fullPrice={2000}
+                  fullPrice={item.fullPrice}
                   price={item.amount / 100}
                   id={item.id}
                   user={user}
