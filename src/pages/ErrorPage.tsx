@@ -1,4 +1,4 @@
-import ErrorCard from "../assets/error_confirmation.svg";
+import ErrorCard from "../../assets/error_confirmation.svg";
 import MainButton from "../components/Buttons/MainButton";
 
 export default function ErrorPage() {

@@ -1,5 +1,5 @@
-import LogoTitle from "../assets/logo_title.png";
-import LogoSmall from "../assets/logo_small.png";
+import LogoTitle from "../../assets/logo_title.png";
+import LogoSmall from "../../assets/logo_small.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoListCircleOutline } from "react-icons/io5";
 import { IoIosArrowDropleft } from "react-icons/io";

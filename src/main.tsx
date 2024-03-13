@@ -9,6 +9,7 @@ import SuccessPage from "./pages/SuccessPage.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import { UserProvider } from "./context/UserProvider.tsx";
+import Landing from "./pages/Landing";
 
 const router = createHashRouter([
   {
@@ -35,6 +36,10 @@ const router = createHashRouter([
     path: "/error",
     element: <ErrorPage />,
   },
+  {
+    path: 'home',
+    element: <Landing />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

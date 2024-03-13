@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import WildCard from "../../assets/star.svg";
+import WildCard from "../../../assets/star.svg";
 import { BiMessageAltError } from "react-icons/bi";
 
 interface AuthInput {

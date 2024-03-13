@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import SuccessCard from "../assets/success_cofirmation.svg";
+import SuccessCard from "../../assets/success_cofirmation.svg";
 import MainButton from "../components/Buttons/MainButton";
 
 export default function SuccessPage() {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Lock from "../assets/Lock_icon.svg";
-import Mail from "../assets/Message_icon.svg";
+import Lock from "../../assets/Lock_icon.svg";
+import Mail from "../../assets/Message_icon.svg";
 /* import LetterA from "../assets/A.svg"; */
 import MainButton from "../components/Buttons/MainButton";
 import AuthLayout from "../layouts/AuthLayout";

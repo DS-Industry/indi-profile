@@ -29,6 +29,9 @@ export default {
         400: "#0A0A0A",
         500: "#000",
       },
+      blue: {
+        500: "#044557"
+      },
       primary: {
         500: "#00A0E3",
         600: "#0073A4",
@@ -38,6 +41,9 @@ export default {
       animation: {
         "spin-slow": "spin 750ms linear infinite",
       },
+      backgroundImage: {
+        'banner-main': "url('/assets/banner.png')"
+      }
     },
   },
   plugins: [],

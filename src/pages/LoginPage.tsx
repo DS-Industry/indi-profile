@@ -1,7 +1,7 @@
 import AuthInput from "../components/inputs/AuthInput";
 import AuthLayout from "../layouts/AuthLayout";
-import Lock from "../assets/Lock_icon.svg";
-import Mail from "../assets/Message_icon.svg";
+import Lock from "../../assets/Lock_icon.svg";
+import Mail from "../../assets/Message_icon.svg";
 import MainButton from "../components/Buttons/MainButton";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
