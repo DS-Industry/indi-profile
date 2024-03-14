@@ -1,4 +1,5 @@
 import Logo from '../../assets/logo_title.png';
+import LogoF from '../../assets/Logo.svg'
 
 
 export default function UnauthorizedLayout({ children }: { children: React.ReactNode; }) {
@@ -78,24 +79,60 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                 </div>
             </header>
 
-            <main className="flex w-full h-full flex-col">{children}</main>
+            <body>
+                <main className="flex w-full h-full flex-col">{children}</main>
+            </body>
 
-            {/*<footer className=" bg-[#9E9E9E] bg-opacity-20">*/}
-            {/*    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">*/}
-            {/*        <div className="flex justify-center">*/}
-            {/*            <img*/}
-            {/*                src={LogoSmall}*/}
-            {/*                className="object-contain"*/}
-            {/*                width="38"*/}
-            {/*                height="38"*/}
-            {/*            />*/}
-            {/*        </div>*/}
+            <footer className="bg-white">
+                <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-10 lg:space-y-16 lg:px-8">
+                    <div className="grid grid-cols-1 gap-x-8 sm:grid-cols-3 lg:col-span-2 lg:grid-cols-2">
+                        <div>
 
-            {/*        <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-[#9E9E9E] font-thin">*/}
-            {/*            © All Rights Reserved. Powered by DSMOYKA PRIVATE LIMITED*/}
-            {/*        </p>*/}
-            {/*    </div>*/}
-            {/*</footer>*/}
+                            <img
+                                src={LogoF}
+                                alt="logoF"
+                                height="120"
+                                width="190"
+                            />
+
+                            <p className="text-xs text-gray-500 pt-6 pl-2">&copy; All Rights Reserved. Powered by DSMOYKA PRIVATE LIMITED</p>
+                        </div>
+                        <div></div>
+                        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-2">
+                            <div>
+                                <p className="font-medium text-gray-900">MENU</p>
+
+                                <ul className="mt-6 space-y-4 text-sm">
+                                    <li>
+                                        <a href="#/home" className="text-gray-700 transition hover:opacity-75"> Home page </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" className="text-gray-700 transition hover:opacity-75"> Services </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" className="text-gray-700 transition hover:opacity-75"> Contacts </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/term" className="text-gray-700 transition hover:opacity-75"> Terms and condition </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/privacy" className="text-gray-700 transition hover:opacity-75"> Privacy policy </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/refund" className="text-gray-700 transition hover:opacity-75"> Refunds and cancellation </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
+
     )
 }
