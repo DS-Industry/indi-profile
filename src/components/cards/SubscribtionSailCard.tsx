@@ -61,6 +61,7 @@ export default function SubscriptionSailCard({
 
     const handleUpgradePlan = () => {
         setIsLoading(true);
+        closeModal();
 
         const addPlanAsync = async () => {
             const scriptResponse = await loadScript(

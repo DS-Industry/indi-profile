@@ -50,6 +50,8 @@ export default function ProfilePage() {
         );
         console.log(resp.data);
         setIsLoading(false);
+        closeModal();
+        window.location.reload();
       } catch (error) {
         setIsLoading(false);
         if (axios.isAxiosError(error)) {
