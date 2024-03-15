@@ -6,7 +6,7 @@ export default function Info({
     text: string;
 }) {
     return (
-        <section className="bg-gray-50">
+        <section className="bg-gray-50 p-8">
             <div className="p-8 md:p-12 lg:px-16 lg:py-24">
                 <div className="mx-auto max-w-lg text-center">
                     <h2 className="text-4xl font-bold text-gray-900 md:text-3xl">

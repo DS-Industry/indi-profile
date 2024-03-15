@@ -42,7 +42,10 @@ export default {
         "spin-slow": "spin 750ms linear infinite",
       },
       backgroundImage: {
-        'banner-main': "url('/assets/banner.png')"
+        'banner-main': "url('/assets/banner.png')",
+        'term-main': "url('/assets/terms.jpeg')",
+        'privacy-main': "url('/assets/privacy.jpeg')",
+        'refund-main': "url('/assets/refund.jpeg')"
       }
     },
   },

@@ -9,7 +9,7 @@ export default function PhotoCard({
     photo: string;
     pe?: string;
 }) {
-    const cn = `group p-2 ${pe}`;
+    const cn = `group p-2 pb-16 ${pe}`;
     return (
         <article className={cn}>
             <img
@@ -21,7 +21,7 @@ export default function PhotoCard({
             <div className="p-4">
                 <h3 className="text-lg font-medium text-gray-900">{title}</h3>
 
-                <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+                <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 ">
                     {text}
                 </p>
             </div>

@@ -40,19 +40,19 @@ const router = createHashRouter([
     element: <ErrorPage />,
   },
   {
-    path: 'home',
+    path: '/home',
     element: <Landing />
   },
   {
-    path: 'term',
+    path: '/term',
     element: <TermPage/>
   },
   {
-    path: 'privacy',
+    path: '/privacy',
     element: <PrivacyPage/>
   },
   {
-    path: 'refund',
+    path: '/refund',
     element: <RefundPage/>
   }
 ]);

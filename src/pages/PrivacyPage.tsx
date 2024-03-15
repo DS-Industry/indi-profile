@@ -7,7 +7,7 @@ export default function PrivacyPage() {
         <UnauthorizedLayout>
             { /* banner */}
             <section
-                className="relative bg-banner-main bg-cover bg-top bg-no-repeat  py-20"
+                className="relative bg-privacy-main bg-cover bg-top bg-no-repeat  py-20"
             >
                 <div
                     className="absolute inset-0 bg-blue-500/35 sm:bg-transparent sm:from-blue-500/75 sm:to-blue-500/15 sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"

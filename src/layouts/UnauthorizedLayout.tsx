@@ -1,16 +1,34 @@
 import Logo from '../../assets/logo_title.png';
 import LogoF from '../../assets/Logo.svg'
+import React from "react";
 
 
 export default function UnauthorizedLayout({ children }: { children: React.ReactNode; }) {
 
+    const scrollToSection = (sectionId: string) => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({behavior: 'smooth'});
+            } else {
+                // Если элемент не найден на текущей странице, переход на другую страницу
+                window.location.href = `#/home?scrollTo=${sectionId}`;
+            }
+    }
+
     return (
-        <div className="w-screen h-screen flex flex-col justify-between">
+        <div className="w-screen h-screen flex flex-col justify-between" onLoad={() => {
+            window.scrollTo(0, 0)
+            if(window.location.hash.split('#/')[1].split('?')[0] === 'home' && window.location.hash.split('#/')[1].split('?')[1] !== undefined){
+                const hash = window.location.hash;
+                const sectionToScroll = hash.split('scrollTo=')[1];
+                scrollToSection(sectionToScroll);
+            }
+        }}>
             <header className="bg-white">
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex-1 md:flex md:items-center md:gap-12">
-                            <a className="block text-teal-600" href="#">
+                            <a className="block text-teal-600" href="#/home">
                                 <span className="sr-only">Home</span>
                                 <img
                                     src={Logo}
@@ -27,23 +45,16 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                 <ul className="flex items-center gap-6 text-sm">
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75"
-                                           href="#"> About </a>
+                                           href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+                                        > About </a>
                                     </li>
 
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75"
-                                           href="#"> Services </a>
+                                           href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
+                                        > Services </a>
                                     </li>
 
-                                    <li>
-                                        <a className="text-gray-500 transition hover:text-gray-500/75"
-                                           href="#"> Pricing </a>
-                                    </li>
-
-                                    <li>
-                                        <a className="text-gray-500 transition hover:text-gray-500/75"
-                                           href="#"> Contacts </a>
-                                    </li>
                                 </ul>
                             </nav>
 
@@ -51,7 +62,7 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                 <div className="sm:flex sm:gap-4">
                                     <a
                                         className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                        href="#"
+                                        href="#/auth/signin"
                                     >
                                         Login
                                     </a>
@@ -66,9 +77,9 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"
-                                            stroke-width="2"
+                                            strokeWidth="2"
                                         >
-                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                   d="M4 6h16M4 12h16M4 18h16"/>
                                         </svg>
                                     </button>
@@ -79,9 +90,9 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                 </div>
             </header>
 
-            <body>
+            <div>
                 <main className="flex w-full h-full flex-col">{children}</main>
-            </body>
+            </div>
 
             <footer className="bg-white">
                 <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-10 lg:space-y-16 lg:px-8">
@@ -108,11 +119,13 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                     </li>
 
                                     <li>
-                                        <a href="#" className="text-gray-700 transition hover:opacity-75"> Services </a>
+                                        <a href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+                                           className="text-gray-700 transition hover:opacity-75"> About </a>
                                     </li>
 
                                     <li>
-                                        <a href="#" className="text-gray-700 transition hover:opacity-75"> Contacts </a>
+                                        <a href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
+                                           className="text-gray-700 transition hover:opacity-75"> Services </a>
                                     </li>
 
                                     <li>
