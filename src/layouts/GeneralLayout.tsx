@@ -41,7 +41,7 @@ export default function GeneralLayout({
             <PiUserCircle className=" text-[40px]" onClick={handleRoute} />
           )}
           <a
-            href="https://dsmoyka.com/"
+            href="#/home"
             target="_blank"
             rel="noopener noreferrer"
           >
