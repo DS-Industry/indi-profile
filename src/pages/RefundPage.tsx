@@ -25,7 +25,7 @@ export default function RefundPage() {
             </section>
 
 
-            <section className="bg-gray-50 pl-20 pr-20">
+            <section className="bg-gray-50 pl-20 pr-20 pt-16">
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
@@ -123,7 +123,7 @@ export default function RefundPage() {
                 </div>
             </section>
 
-            <section className="bg-gray-50 pl-20 pr-20">
+            <section className="bg-gray-50 pl-20 pr-20 pb-16">
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
