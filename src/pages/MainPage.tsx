@@ -25,7 +25,7 @@ export default function MainPage() {
   useEffect(() => {
     const user = getUser();
     if (!user) {
-      navigate("/auth/signin");
+      navigate("/home");
     }
     const getPlanListAsync = async () => {
       try {
