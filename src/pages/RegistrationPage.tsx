@@ -121,9 +121,9 @@ export default function RegistrationPage() {
             value={userData.uniqNomer}
             handleChange={handleChange}
             required={true}
-            regexp={/.{10,}/}
+            regexp={/.{8,}/}
             handleValidation={setIsValid}
-            validationMessage="The cw card number must contain 10 digits"
+            validationMessage="The cw card number must contain 8 digits"
         />
         <AuthInput
           type={"password"}
