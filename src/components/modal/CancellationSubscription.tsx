@@ -1,7 +1,8 @@
-import {PropsWithChildren} from "react";
+import {PropsWithChildren, useState} from "react";
 import ReactDOM from "react-dom";
 import MainButton from "../Buttons/MainButton.tsx";
 import "../../styles/modal.css"
+import MainLoader from "../loaders/MainLoader.tsx";
 
 
 interface ICancellationSubscription {
@@ -18,6 +19,7 @@ const Modal = ({
     onClose,
     children
 }: PropsWithChildren<ICancellationSubscription>) => {
+    const [isLoading] = useState<boolean>(false);
     if(!active) {
         return null
     }
@@ -32,7 +34,18 @@ const Modal = ({
                 <div className="modal__body">{children}</div>
                 <div className="modal__footer">
                     <MainButton
-                        title={"Confirm"}
+                        title={
+                            !isLoading ? (
+                                "Confirm"
+                            ) : (
+                                <div className=" w-full h-full flex justify-center items-center">
+                                    <MainLoader
+                                        additionalStyles={" w-8 h-8 "}
+                                        insideStyles={"bg-primary-500 w-6 h-6"}
+                                    />
+                                </div>
+                            )
+                        }
                         handleClick={onSubmit}
                         value={""}
                         additionalStyles={

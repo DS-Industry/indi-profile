@@ -11,6 +11,9 @@ import axios, { AxiosResponse } from "axios";
 import MainLoader from "../components/loaders/MainLoader";
 import { Subscribe, User } from "../types";
 import Toast from "../components/toast/Toast";
+import Success from "../components/toast/Success.tsx";
+import OtpInput from "../components/inputs/OtpInput.tsx";
+import Modal from "../components/modal/CancellationSubscription.tsx";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -19,14 +22,38 @@ export default function LoginPage() {
   const [userData, setUserData] = useState<{
     phone: string;
     password: string;
+    newPassword: string;
+    checkNewPassword: string;
+    otp: string;
   }>({
     phone: "",
     password: "",
+    newPassword: "",
+    checkNewPassword: "",
+    otp: "",
   });
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<string>("");
+  const [isSuccess, setIsSuccess] = useState<string>("");
+  const [showModalPhone, setShowModalPhone] = useState<boolean>(false);
+  const [showModalPassword, setShowModalPassword] = useState<boolean>(false);
 
+  const openModalPhone = () => {
+    setShowModalPhone(true);
+  };
+
+  const closeModalPhone = () => {
+    setShowModalPhone(false);
+  }
+
+  const openModalPassword = () => {
+    setShowModalPassword(true);
+  };
+
+  const closeModalPassword = () => {
+    setShowModalPassword(false);
+  }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevVal) => {
       return {
@@ -85,6 +112,61 @@ export default function LoginPage() {
     }
   };
 
+  const changePasswordOtp = () => {
+    const otpAsync = async () => {
+      try {
+        const {
+          data: { data },
+        }: AxiosResponse<{ data: { status: string; target: string;} }> =
+            await api.post("auth/changePassword/otp", { ...userData });
+
+        if(data.status === 'sent_success'){
+          closeModalPhone()
+          openModalPassword();
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setIsError(
+              error.response?.data.code === 4
+                  ? "The account was not found"
+                  : "Something went wrong"
+          );
+        }
+      }
+    };
+    if (isValid) {
+      otpAsync();
+    }
+  };
+
+  const changePassword = () => {
+    const changePasswordAsync = async () => {
+      try {
+        const {
+          data: { data },
+        }: AxiosResponse<{ data: { status: string; target: string;} }> =
+            await api.post("auth/changePassword", { ...userData });
+        if(data.status === 'change_success'){
+          closeModalPassword();
+          setIsSuccess("The password has been successfully changed")
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setIsError(
+              error.response?.data.code === 5
+                  ? "Passwords don't match"
+                  : (error.response?.data.code === 6
+                      ? "Invalid verification code"
+                      : "Something went wrong")
+          );
+        }
+      }
+    };
+    if (isValid) {
+      changePasswordAsync();
+    }
+  };
+
   useEffect(() => {
     if (isError) {
       const timeOutId = setTimeout(() => {
@@ -93,8 +175,15 @@ export default function LoginPage() {
       return () => {
         clearTimeout(timeOutId);
       };
+    } else if (isSuccess){
+      const timeOutId = setTimeout(() => {
+        setIsSuccess("");
+      }, 3000);
+      return () => {
+        clearTimeout(timeOutId);
+      };
     }
-  }, [isError]);
+  }, [isError, isSuccess]);
 
   return (
     <AuthLayout>
@@ -141,7 +230,16 @@ export default function LoginPage() {
           }
         />
       </div>
-      <p className=" font-inter-light text-white-900 text-sm text-center mt-2">
+      <p className=" font-inter-light text-white-900 text-sm text-center mt-6">
+        Don't remember your password?
+        <span
+            onClick={() => openModalPhone()}
+            className=" text-primary-500 hover:cursor-pointer"
+        >
+          Recover!
+        </span>
+      </p>
+      <p className=" font-inter-light text-white-900 text-sm text-center mt-2 mb-4">
         Don’t have an account?
         <span
           onClick={() => navigate("/auth/signup")}
@@ -150,12 +248,69 @@ export default function LoginPage() {
           Sign Up!
         </span>
       </p>
+      <Modal title="Change the password" active={showModalPhone} onClose={closeModalPhone} onSubmit={changePasswordOtp}>
+        <div>Specify the phone number that was specified when creating the account.</div>
+        <OtpInput
+            type={"phone"}
+            placeholder={"phone"}
+            name={"phone"}
+            value={userData.phone}
+            handleChange={handleChange}
+            required={true}
+            regexp={/^\+91(\d{10})$/}
+            handleValidation={setIsValid}
+            validationMessage="Phone must start on +91 and be no less than 13 digits"
+        />
+      </Modal>
+      <Modal title="Change the password" active={showModalPassword} onClose={closeModalPassword} onSubmit={changePassword}>
+        <div>A verification code has been sent to the email address specified during registration. Specify it for a successful password change.</div>
+        <OtpInput
+            type={"password"}
+            placeholder={"password"}
+            name={"newPassword"}
+            value={userData.newPassword}
+            handleChange={handleChange}
+            required={true}
+            regexp={/.{6,}/}
+            handleValidation={setIsValid}
+            validationMessage="Password must be no less than 6 digits"
+        />
+        <OtpInput
+            type={"password"}
+            placeholder={"write password again"}
+            name={"checkNewPassword"}
+            value={userData.checkNewPassword}
+            handleChange={handleChange}
+            required={true}
+            regexp={new RegExp(`${userData.newPassword}`)}
+            handleValidation={setIsValid}
+            validationMessage="This field should be the same as a password"
+        />
+        <OtpInput
+            type={"otp"}
+            placeholder={"write the verification code"}
+            name={"otp"}
+            value={userData.otp}
+            handleChange={handleChange}
+            required={true}
+            regexp={/.{6,}/}
+            handleValidation={setIsValid}
+            validationMessage="The verification code must contain 6 digits"
+        />
+      </Modal>
       {isError && (
         <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
           <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
             <Toast title={"Ooops..."} body={isError} />
           </div>
         </div>
+      )}
+      {isSuccess && (
+          <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
+            <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
+              <Success body={isSuccess} />
+            </div>
+          </div>
       )}
     </AuthLayout>
   );

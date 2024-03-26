@@ -6,30 +6,126 @@ import { useEffect, useState } from "react";
 import MainLoader from "../components/loaders/MainLoader";
 import api from "../api";
 import Toast from "../components/toast/Toast";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import Modal from "../components/modal/CancellationSubscription.tsx";
+import OtpInput from "../components/inputs/OtpInput.tsx";
+import Success from "../components/toast/Success.tsx";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { user, getUser, clearUser, setUser } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isValid, setIsValid] = useState<boolean>(true);
   const [isPayLoading, setIsPayLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<string>("");
+  const [showModalStop, setShowModalStop] = useState<boolean>(false);
+  const [showModalChange, setShowModalChange] = useState<boolean>(false);
+  const [userData, setUserData] = useState<{
+    newPassword: string;
+    checkNewPassword: string;
+    otp: string;
+  }>({
+    newPassword: "",
+    checkNewPassword: "",
+    otp: "",
+  });
   const handleClick = () => {
     navigate("/");
   };
-  const openModal = () => {
-    setShowModal(true);
+  const openModalStop = () => {
+    setShowModalStop(true);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeModalStop = () => {
+    setShowModalStop(false);
+  }
+
+  const openModalChange = () => {
+    setShowModalChange(true);
+  };
+
+  const closeModalChange = () => {
+    setShowModalChange(false);
   }
 
   const handleLogout = () => {
     clearUser();
     navigate("/auth/signin");
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData((prevVal) => {
+      return {
+        ...prevVal,
+        [event.target.name]: event.target.value,
+      };
+    });
+  };
+
+  const changePasswordOtp = () => {
+    const user = getUser();
+    if (!user) {
+      navigate("/auth/signin");
+    }
+    const changePasOtp = async () => {
+      try {
+        const {
+          data: { data },
+        }: AxiosResponse<{ data: { status: string; target: string;} }> = await api.post(
+            "account/changePassword/otp", {},
+            {
+              headers: {
+                Authorization: `Bearer ${user?.tokens.accessToken}`,
+              },
+            }
+        );
+        if(data.status === 'sent_success'){
+          openModalChange();
+        }
+      } catch (error) {
+        setIsLoading(false);
+        if (axios.isAxiosError(error)) {
+          setIsError("Something went wrong");
+        }
+      }
+    };
+    if (user) {
+      changePasOtp();
+    }
+  }
+
+  const changePassword = () => {
+    const changePasswordAsync = async () => {
+      setIsLoading(true);
+      try {
+        const {
+          data: { data },
+        }: AxiosResponse<{ data: { status: string; target: string;} }> =
+            await api.post("account/changePassword", { ...userData }, {
+              headers: {
+                Authorization: `Bearer ${user?.tokens.accessToken}`,
+              },});
+        if(data.status === 'change_success'){
+          closeModalChange();
+          setIsSuccess("The password has been successfully changed")
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setIsError(
+              error.response?.data.code === 5
+                  ? "Passwords don't match"
+                  : (error.response?.data.code === 6
+                      ? "Invalid verification code"
+                      : "Something went wrong")
+          );
+        }
+      }
+      setIsLoading(false);
+    };
+    if (isValid) {
+      changePasswordAsync();
+    }
   };
 
   const cancellationSubscribe = () => {
@@ -50,8 +146,9 @@ export default function ProfilePage() {
         );
         console.log(resp.data);
         setIsLoading(false);
-        closeModal();
+        closeModalStop();
         window.location.reload();
+        setIsSuccess("The subscription has been successfully updated")
       } catch (error) {
         setIsLoading(false);
         if (axios.isAxiosError(error)) {
@@ -113,8 +210,15 @@ export default function ProfilePage() {
       return () => {
         clearTimeout(timeOutId);
       };
+    } else if (isSuccess){
+      const timeOutId = setTimeout(() => {
+        setIsSuccess("");
+      }, 3000);
+      return () => {
+        clearTimeout(timeOutId);
+      };
     }
-  }, [isError]);
+  }, [isError, isSuccess]);
 
   return (
     <GeneralLayout>
@@ -215,7 +319,7 @@ export default function ProfilePage() {
                 {user?.client.cards.balance}
               </p>
               <div className=" w-full flex flex-row  justify-between mt-3 xs:text-sm sm:text-base">
-                <p className=" text-white-800 ">card number</p>
+                <p className=" text-white-800 ">Card number</p>
                 <p className=" text-primary-500">{user?.client.cards.number}</p>
               </div>
               <div className=" w-full flex flex-row justify-between xs:text-sm sm:text-base">
@@ -262,16 +366,61 @@ export default function ProfilePage() {
             {user?.subscribe?.status === "active" && (
               <MainButton
                 title={"Stop subscribtion"}
-                handleClick={openModal}
+                handleClick={openModalStop}
                 value={""}
                 additionalStyles={
                   "bg-red-300  text-white-500 mt-5 hover:bg-red-400 transition-all duration-300 max-w-[500px]"
                 }
               />
             )}
-            <Modal title="Cancellation of subscription" active={showModal} onClose={closeModal} onSubmit={cancellationSubscribe}>
+            <Modal title="Cancellation of subscription" active={showModalStop} onClose={closeModalStop} onSubmit={cancellationSubscribe}>
               <div>Are you sure you want to cancel your subscription?</div>
               <div>In case of cancellation, the remaining points will be withdrawn automatically at the end of the last active billing period.</div>
+            </Modal>
+
+            <MainButton
+                title={"Change password"}
+                handleClick={changePasswordOtp}
+                value={""}
+                additionalStyles={
+                  "bg-white-700 hover:bg-white-400 hover:text-white-500 text-white-900 mt-5 transition-all duration-300 mb-5 max-w-[500px]"
+                }
+            />
+            <Modal title="Change the password" active={showModalChange} onClose={closeModalChange} onSubmit={changePassword}>
+              <div>A verification code has been sent to the email address specified during registration. Specify it for a successful password change.</div>
+              <OtpInput
+                  type={"password"}
+                  placeholder={"password"}
+                  name={"newPassword"}
+                  value={userData.newPassword}
+                  handleChange={handleChange}
+                  required={true}
+                  regexp={/.{6,}/}
+                  handleValidation={setIsValid}
+                  validationMessage="Password must be no less than 6 digits"
+              />
+              <OtpInput
+                  type={"password"}
+                  placeholder={"write password again"}
+                  name={"checkNewPassword"}
+                  value={userData.checkNewPassword}
+                  handleChange={handleChange}
+                  required={true}
+                  regexp={new RegExp(`${userData.newPassword}`)}
+                  handleValidation={setIsValid}
+                  validationMessage="This field should be the same as a password"
+              />
+              <OtpInput
+                  type={"otp"}
+                  placeholder={"write the verification code"}
+                  name={"otp"}
+                  value={userData.otp}
+                  handleChange={handleChange}
+                  required={true}
+                  regexp={/.{6,}/}
+                  handleValidation={setIsValid}
+                  validationMessage="The verification code must contain 6 digits"
+              />
             </Modal>
 
             <MainButton
@@ -291,6 +440,13 @@ export default function ProfilePage() {
             <Toast title={"Ooops..."} body={isError} />
           </div>
         </div>
+      )}
+      {isSuccess && (
+          <div className=" absolute top-2 flex w-auto min-w-[600px] justify-start items-center z-40 ">
+            <div className=" md:w-1/2 sm:w-1/2 xs:w-fit">
+              <Success body={isSuccess} />
+            </div>
+          </div>
       )}
     </GeneralLayout>
   );

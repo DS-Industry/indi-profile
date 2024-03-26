@@ -91,9 +91,7 @@ export default function SubscriptionSailCard({
                     "description": "Monthly Car Wash Plan",
                     "image": "",
                     "handler": function(response: any) {
-                        alert(response.razorpay_payment_id),
-                        alert(response.razorpay_subscription_id),
-                        alert(response.razorpay_signature);
+
                     },
                     "prefill": {
                         "email": `${user?.client.email}`,
