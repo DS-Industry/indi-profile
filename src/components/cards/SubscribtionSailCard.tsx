@@ -90,7 +90,7 @@ export default function SubscriptionSailCard({
                     "name": "DSMoy-ka",
                     "description": "Monthly Car Wash Plan",
                     "image": "",
-                    "handler": function(response: any) {
+                    "handler": function() {
 
                     },
                     "prefill": {
