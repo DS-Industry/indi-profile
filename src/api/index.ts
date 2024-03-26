@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: /*`https://indi-landing-backend-xzzi7.ondigitalocean.app`*/ `http://localhost:3000`,
+  baseURL: `https://indi-landing-backend-xzzi7.ondigitalocean.app` /*`http://localhost:3000`*/,
   timeout: 10000, // Set the request timeout (optional)
   headers: {
     "Content-Type": "application/json", // Set the default Content-Type header for all requests
