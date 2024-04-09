@@ -1,7 +1,7 @@
 import UnauthorizedLayout from "../layouts/UnauthorizedLayout";
 
 
-export default function TermPage() {
+export default function TermSubPage() {
 
     return (
         <UnauthorizedLayout>
@@ -20,6 +20,9 @@ export default function TermPage() {
                         <h1 className="text-3xl font-extrabold sm:text-6xl text-white-500">
                             Terms and Conditions
                         </h1>
+                        <h1 className="text-3xl font-extrabold sm:text-6xl text-white-500">
+                            Subscription
+                        </h1>
                     </div>
                 </div>
             </section>
@@ -33,7 +36,7 @@ export default function TermPage() {
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            By using DSMoyka & Zixdo's self-service car wash facilities, you agree to comply with and be bound by the terms and conditions outlined herein.
+                            By using the self-service Car Wash Subscription System application, you agree to comply with and be bound by the terms set out here.
                         </p>
                     </div>
                 </div>
@@ -48,10 +51,10 @@ export default function TermPage() {
 
                         <ul className="list-disc pl-4">
                             <li className=" pt-4">
-                                <b>Operation Hours:</b> Our self-service car wash is available during specified operating hours. Users are expected to adhere to posted hours.
+                                <b>Operation Hours:</b> Our self-service car wash app is available during the specified opening hours. Users must follow the specified hours.
                             </li>
                             <li className=" pt-4">
-                                <b>Equipment Usage:</b> Users must operate the equipment responsibly and in accordance with provided instructions. Any damage caused due to misuse is the responsibility of the user.
+                                <b>Equipment Usage:</b> Users must handle the equipment responsibly and follow the instructions provided. Any damage caused by improper use is the responsibility of the user.
                             </li>
                         </ul>
                     </div>
@@ -67,10 +70,10 @@ export default function TermPage() {
 
                         <ul className="list-disc pl-4">
                             <li className=" pt-4">
-                                <b>Pricing:</b> Charges for DSMoyka & Zixdo's self-service car wash facilities are clearly displayed. Users are responsible for the payment of applicable fees.
+                                <b>Pricing:</b> The cost of using the subscription system is clearly displayed. Users are responsible for paying the relevant fees.
                             </li>
                             <li className="pt-4">
-                                <b>Refunds:</b> Refunds are not provided for unused time or any malfunctions that are beyond our control.
+                                <b>Refunds:</b> Refunds are not provided for unused time or any failures that are beyond our control.
                             </li>
                         </ul>
                     </div>
@@ -86,10 +89,10 @@ export default function TermPage() {
 
                         <ul className="list-disc pl-4">
                             <li className="pt-4">
-                                <b>Safety:</b> Users are responsible for their safety and the safety of others during the use of DSMoyka & Zixdo's facilities.
+                                <b>Safety:</b> Users are responsible for their own safety and the safety of others while using our app.
                             </li>
                             <li className=" pt-4">
-                                <b>Liability:</b> Our facility is not liable for any damage to vehicles, personal property, or injuries that occur on the premises, except in cases of proven negligence on our part.
+                                <b>Liability:</b> Our application is not responsible for any damage to vehicles, personal property or injuries that occurred on site, except in cases of proven negligence on our part.
                             </li>
                         </ul>
                     </div>
@@ -104,7 +107,7 @@ export default function TermPage() {
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            Users are expected to dispose of waste properly and adhere to environmental regulations. Any fines incurred due to improper waste disposal are the responsibility of the user.
+                            Users must properly dispose of waste and comply with environmental regulations. Any fines charged for improper waste disposal are the responsibility of the user.
                         </p>
                     </div>
                 </div>
@@ -118,7 +121,8 @@ export default function TermPage() {
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            For security purposes, DSMoyka & Zixdo's self-service car wash facility is under surveillance. Any suspicious or unlawful activities will be reported to the authorities.                        </p>
+                            For security reasons, our self-service car wash application is under surveillance. Any suspicious or illegal activities will be reported to the relevant authorities.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -131,7 +135,8 @@ export default function TermPage() {
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            Users are expected to conduct themselves in a respectful and considerate manner. Any behavior deemed disruptive may result in the termination of services and reporting to law enforcement if necessary                        </p>
+                            Users are expected to behave respectfully and tactfully. Any behavior deemed to be in violation may result in termination of service and reporting to law enforcement if necessary.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -144,9 +149,10 @@ export default function TermPage() {
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            We reserve the right to modify these terms and conditions at any time. Users will be notified of any changes, and continued use of DSMoyka & Zixdo's facilities implies acceptance of the revised terms.                        </p>
+                            We reserve the right to make changes to these terms at any time. Users will be notified of the changes, and continued use of our app implies acceptance of the changed terms.
+                        </p>
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            By using DSMoyka & Zixdo's self-service car wash facilities, you acknowledge that you have read, understood, and agreed to these terms and conditions.
+                            By using our self-service car wash subscription system application, you acknowledge that you have read, understood and agreed to these Terms of Use.
                         </p>
                     </div>
                 </div>

@@ -13,6 +13,10 @@ import Landing from "./pages/Landing";
 import TermPage from "./pages/TermPage.tsx";
 import PrivacyPage from "./pages/PrivacyPage.tsx";
 import RefundPage from "./pages/RefundPage.tsx";
+import ContactsPage from "./pages/ContactsPage.tsx";
+import SubscriptionPage from "./pages/SubscriptionPage.tsx";
+import TermSubPage from "./pages/TermSubPage.tsx";
+import RefundSubPage from "./pages/RefundSubPage.tsx";
 
 const router = createHashRouter([
   {
@@ -48,12 +52,28 @@ const router = createHashRouter([
     element: <TermPage/>
   },
   {
+    path: '/termSub',
+    element: <TermSubPage/>
+  },
+  {
     path: '/privacy',
     element: <PrivacyPage/>
   },
   {
     path: '/refund',
     element: <RefundPage/>
+  },
+  {
+    path: '/refundSub',
+    element: <RefundSubPage/>
+  },
+  {
+    path: '/subscription',
+    element: <SubscriptionPage/>
+  },
+  {
+    path: '/contacts',
+    element: <ContactsPage/>
   }
 ]);
 

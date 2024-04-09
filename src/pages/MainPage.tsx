@@ -78,6 +78,7 @@ export default function MainPage() {
           {plans &&
             plans
               .filter((item) => item.name !== user?.subscribe?.name)
+                .filter(item => !item.name.startsWith('test'))
               .map((item, index) => (
                 <SubscriptionSailCard
                   key={index}

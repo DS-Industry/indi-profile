@@ -1,7 +1,7 @@
 import UnauthorizedLayout from "../layouts/UnauthorizedLayout";
 
 
-export default function RefundPage() {
+export default function RefundSubPage() {
 
     return (
         <UnauthorizedLayout>
@@ -20,6 +20,9 @@ export default function RefundPage() {
                         <h1 className="text-3xl font-extrabold sm:text-6xl text-white-500">
                             Refund and cancellation
                         </h1>
+                        <h1 className="text-3xl font-extrabold sm:text-6xl text-white-500">
+                            Subscription
+                        </h1>
                     </div>
                 </div>
             </section>
@@ -29,11 +32,11 @@ export default function RefundPage() {
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            Refunds
+                            Subscription Cancellation
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            We do not provide refunds for unused time or services at our self-service car wash.
+                            Customers have the option to cancel their subscription at any time. Upon cancellation, the subscription will remain active until the end of the current billing cycle. Refunds will not be provided for any remaining days or unused subscription time. To cancel a subscription, customers can follow the cancellation process outlined on our website or contact our customer support for assistance.
                         </p>
                     </div>
                 </div>
@@ -43,11 +46,11 @@ export default function RefundPage() {
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            Malfunctions
+                            Refunds for Subscriptions
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            In the event of any malfunctions or issues with the equipment that are beyond our control, we regret that we cannot offer refunds. However, please report any malfunctions to our staff immediately for assistance.
+                            We do not offer refunds for unused subscription periods or services once a payment has been processed. Any cancellation of a subscription will take effect from the next billing cycle. Refunds will not be issued for partial periods or if the subscription is canceled mid-cycle.
                         </p>
                     </div>
                 </div>
@@ -57,11 +60,11 @@ export default function RefundPage() {
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            Unauthorized Transactions
+                            Unused Points and Balances
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            If you notice any unauthorized transactions on your card or any payment method, please contact us promptly. We will investigate the matter and, if necessary, take appropriate action.
+                            In the event of a subscription cancellation, any remaining points or balances accrued from the subscription will remain available for use until the end of the current billing cycle. Customers can continue to redeem these points or balances for services, as outlined in our loyalty program, before they expire at the end of the billing cycle.
                         </p>
                     </div>
                 </div>
@@ -71,45 +74,17 @@ export default function RefundPage() {
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            No Appointments
+                            Updates to Policy
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            Our self-service car wash operates on a first-come, first-served basis. As such, we do not accept appointments, and there is no need to cancel your visit.
+                            Our company reserves the right to update or revise this Refund and Cancellation Policy as needed. Any modifications to the policy will be posted on our website, and the changes will become effective immediately. Customers are responsible for reviewing the policy periodically to stay informed of any updates.
                         </p>
                     </div>
                 </div>
             </section>
 
             <section className="bg-gray-50 pl-20 pr-20">
-                <div className="p-8 md:p-6 lg:px-16 lg:py-24">
-                    <div className="mx-auto pl-16 pr-16 text-left">
-                        <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            Unused Time
-                        </h4>
-
-                        <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            If, for any reason, you are unable to use the entire prepaid time for a self-service car wash session, we regret that refunds or extensions cannot be provided.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section className="bg-gray-50 pl-20 pr-20">
-                <div className="p-8 md:p-6 lg:px-16 lg:py-24">
-                    <div className="mx-auto pl-16 pr-16 text-left">
-                        <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            Changes to This Policy
-                        </h4>
-
-                        <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            DS Moyka & Zixdo reserves the right to update or modify this Refund and Cancellation Policy at any time. Any changes will be effective immediately upon posting on our website.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section className="bg-gray-50 pl-20 pr-20 pb-16">
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
                         <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
@@ -117,7 +92,7 @@ export default function RefundPage() {
                         </h4>
 
                         <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            By using our self-service car wash facilities, you acknowledge that you have read, understood, and agreed to the terms outlined in this Refund and Cancellation Policy.
+                            By subscribing to our service and utilizing our website, customers acknowledge that they have reviewed, understood, and agreed to the terms and conditions outlined in this Refund and Cancellation Policy.
                         </p>
                     </div>
                 </div>

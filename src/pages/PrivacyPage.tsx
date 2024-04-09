@@ -24,21 +24,6 @@ export default function PrivacyPage() {
                 </div>
             </section>
 
-
-            <section className="bg-gray-50 pl-20 pr-20 pt-16">
-                <div className="p-8 md:p-6 lg:px-16 lg:py-24">
-                    <div className="mx-auto pl-16 pr-16 text-left">
-                        <h4 className="text-4xl font-bold text-gray-900 md:text-3xl">
-                            Personal Information
-                        </h4>
-
-                        <p className="hidden text-gray-500 sm:mt-4 sm:block">
-                            We may collect personal information, including but not limited to names, contact details, and payment information when you use our self-service car wash facilities.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
             <section className="bg-gray-50 pl-20 pr-20">
                 <div className="p-8 md:p-6 lg:px-16 lg:py-24">
                     <div className="mx-auto pl-16 pr-16 text-left">
