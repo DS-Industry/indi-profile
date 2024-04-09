@@ -41,6 +41,9 @@ export default function ContactsPage() {
                             <li className=" pt-4">
                                 <b>Phone:</b> +91 91109 43649
                             </li>
+                            <li className=" pt-4">
+                                <b>Address:</b> 22 Midway Road, Opposite The Case.Sector 64, Guru ram, Haryana 122001, beside Live Cafe, Haryana 122102, India
+                            </li>
                         </ul>
                     </div>
                 </div>

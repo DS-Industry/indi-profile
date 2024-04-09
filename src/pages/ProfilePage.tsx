@@ -365,7 +365,7 @@ export default function ProfilePage() {
             />
             {user?.subscribe?.status === "active" && (
               <MainButton
-                title={"Stop subscribtion"}
+                title={"Stop subscription"}
                 handleClick={openModalStop}
                 value={""}
                 additionalStyles={
