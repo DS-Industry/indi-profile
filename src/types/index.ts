@@ -26,7 +26,7 @@ export type Subscribe = {
   amount: number;
   dateDebiting: Date;
   name: string;
-  status: "active" | "closed" | "created";
+  status: "active" | "closed" | "created" | "loading";
   subscribeId: string;
   payUrl?: string;
 } | null;

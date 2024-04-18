@@ -162,10 +162,36 @@ export default function ProfilePage() {
   }
   const payCurrentSubscribe = () => {
     setIsPayLoading(true);
-    const linkElem = document.createElement("a");
-    linkElem.href = user?.subscribe?.payUrl || "";
-    linkElem.target = "_blank";
-    linkElem.click();
+    const subId = user?.subscribe?.subscribeId || "";
+
+    const options = {
+      "key": "rzp_test_RJR5WRZOHUdxug",
+      "subscription_id": `${subId}`,
+      "name": "DSMoy-ka",
+      "description": "Monthly Car Wash Plan",
+      "image": "",
+      "handler": async function (response: any) {
+        try {
+          await api.post("subscribe/check", {
+            response,
+            subscriptionId: subId,
+          });
+          navigate("/success");
+        } catch (e) {
+          navigate("/error");
+        }
+      },
+      "prefill": {
+        "email": `${user?.client.email}`,
+        "contact": `${user?.client.phone}`
+      },
+      "theme": {
+        "color": "#F37254"
+      }
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
     setIsPayLoading(false);
   };
 
@@ -182,10 +208,16 @@ export default function ProfilePage() {
               Authorization: `Bearer ${user.tokens.accessToken}`,
             },
           });
-          console.log(resp.data);
+          const resrClient = await api.get("account/me", {
+            headers: {
+              Authorization: `Bearer ${user.tokens.accessToken}`,
+            },
+          });
+          console.log(resrClient.data);
           const updatedUser = {
             ...user,
             subscribe: resp.data.data,
+            client: resrClient.data.data,
           };
 
           setUser(updatedUser);
@@ -261,7 +293,9 @@ export default function ProfilePage() {
                       className={`${
                         user?.subscribe?.status === "created"
                           ? " text-white-800"
-                          : user?.subscribe?.status === "active"
+                          : user?.subscribe?.status === "loading" 
+                          ? " text-white-800" 
+                          : user?.subscribe?.status === "active" 
                           ? "text-primary-500"
                           : user?.subscribe?.status === "closed"
                           ? " text-red-300"
@@ -274,11 +308,13 @@ export default function ProfilePage() {
                       className={` animate-pulse w-3 h-3 rounded-full ${
                         user?.subscribe?.status === "created"
                           ? " bg-white-900"
+                          : user?.subscribe?.status === "loading"
+                          ? " bg-white-900"
                           : user?.subscribe?.status === "active"
-                          ? "bg-primary-500"
+                          ? "bg-green-600"
                           : user?.subscribe?.status === "closed"
-                          ? " bg-red-300"
-                          : " bg-white-400"
+                          ? " text-red-300"
+                          : " text-white-400"
                       }`}
                     ></div>
                   </div>

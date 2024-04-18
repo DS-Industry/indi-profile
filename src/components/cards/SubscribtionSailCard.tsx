@@ -5,6 +5,7 @@ import MainButton from "../Buttons/MainButton";
 import { useState } from "react";
 import MainLoader from "../loaders/MainLoader";
 import Modal from "../modal/CancellationSubscription.tsx";
+import {useNavigate} from "react-router-dom";
 
 declare global {
     interface Window {
@@ -32,6 +33,7 @@ export default function SubscriptionSailCard({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
 
+    const navigate = useNavigate();
     const closeModal = () => {
         setShowModal(false);
     }
@@ -81,17 +83,25 @@ export default function SubscriptionSailCard({
                         Authorization: `Bearer ${user?.tokens.accessToken}`,
                     },
                 }
-                const response: AxiosResponse = await api.post('subscribe/create', body, config);
-
-                console.log(response.data.data.subId);
+                const responseCreate: AxiosResponse = await api.post('subscribe/create', body, config);
+                const subId = responseCreate.data.data.subId;
+                console.log(subId);
                 const options = {
                     "key": "rzp_test_RJR5WRZOHUdxug",
-                    "subscription_id": `${response.data.data.subId}`,
+                    "subscription_id": `${subId}`,
                     "name": "DSMoy-ka",
                     "description": "Monthly Car Wash Plan",
                     "image": "",
-                    "handler": function() {
-
+                    "handler": async function (response: any) {
+                        try {
+                            await api.post("subscribe/check", {
+                                response,
+                                subscriptionId: subId,
+                            });
+                            navigate("/success");
+                        } catch (e) {
+                            navigate("/error");
+                        }
                     },
                     "prefill": {
                         "email": `${user?.client.email}`,
