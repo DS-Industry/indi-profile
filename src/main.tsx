@@ -17,6 +17,8 @@ import ContactsPage from "./pages/ContactsPage.tsx";
 import SubscriptionPage from "./pages/SubscriptionPage.tsx";
 import TermSubPage from "./pages/TermSubPage.tsx";
 import RefundSubPage from "./pages/RefundSubPage.tsx";
+import FranchisePage from "./pages/FranchisePage.tsx";
+import PackPage from "./pages/PackPage.tsx";
 
 const router = createHashRouter([
   {
@@ -74,6 +76,14 @@ const router = createHashRouter([
   {
     path: '/contacts',
     element: <ContactsPage/>
+  },
+  {
+    path: '/franchise',
+    element: <FranchisePage/>
+  },
+  {
+    path: '/pack',
+    element: <PackPage/>
   }
 ]);
 

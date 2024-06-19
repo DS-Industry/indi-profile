@@ -1,8 +1,9 @@
 import ErrorCard from "../../assets/error_confirmation.svg";
 import MainButton from "../components/Buttons/MainButton";
+import {useNavigate} from "react-router-dom";
 
 export default function ErrorPage() {
-  const handleClick = () => {};
+  const navigate = useNavigate();
   return (
     <>
       <div className=" flex flex-col min-h-screen min-w-screen items-center justify-between pt-[100px] pb-[20px] px-[20px]">
@@ -23,7 +24,7 @@ export default function ErrorPage() {
           </p>
           <MainButton
             title={"TRY AGAIN"}
-            handleClick={handleClick}
+            handleClick={() => navigate("/")}
             value={""}
             additionalStyles={" bg-primary-500 text-white-500 w-full"}
           />

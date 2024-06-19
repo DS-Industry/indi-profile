@@ -63,7 +63,7 @@ export default function SubscriptionPage() {
                     </section>
                     <div
                         className="my-[30px] min-w-full flex flex-grow justify-center items-center sm:flex-col xs:flex-col md:flex-row gap-5 pt-10">
-                        {plans && plans.filter(item => !item.name.startsWith('test')).map((item, index) => (
+                        {plans && plans.filter(item => item.name !== 'Optimum' && !item.name.startsWith('test')).map((item, index) => (
                             <SubscriptionInfoCard
                                 key={index}
                                 name={item.name}

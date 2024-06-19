@@ -62,6 +62,11 @@ export default function UnauthorizedLayout({ children }: { children: React.React
 
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75"
+                                           href="#/franchise"> Franchise </a>
+                                    </li>
+
+                                    <li>
+                                        <a className="text-gray-500 transition hover:text-gray-500/75"
                                            href="#/contacts"> Contacts </a>
                                     </li>
 

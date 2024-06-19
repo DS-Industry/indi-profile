@@ -46,7 +46,8 @@ export default {
         'banner-main': "url('/assets/banner.png')",
         'term-main': "url('/assets/terms.jpeg')",
         'privacy-main': "url('/assets/privacy.jpeg')",
-        'refund-main': "url('/assets/refund.jpeg')"
+        'refund-main': "url('/assets/refund.jpeg')",
+        'franchise-main': "url('/assets/franchise1.jpg')"
       }
     },
   },

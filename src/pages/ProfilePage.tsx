@@ -31,7 +31,7 @@ export default function ProfilePage() {
     otp: "",
   });
   const handleClick = () => {
-    navigate("/");
+    navigate("/pack");
   };
   const openModalStop = () => {
     setShowModalStop(true);
@@ -165,7 +165,7 @@ export default function ProfilePage() {
     const subId = user?.subscribe?.subscribeId || "";
 
     const options = {
-      "key": "rzp_test_RJR5WRZOHUdxug",
+      "key": "rzp_live_28uKBwwEso0CLe",
       "subscription_id": `${subId}`,
       "name": "DSMoy-ka",
       "description": "Monthly Car Wash Plan",

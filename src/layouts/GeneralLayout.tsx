@@ -33,12 +33,38 @@ export default function GeneralLayout({
         </div>
         <div className="flex items-center gap-5">
           {location.pathname.includes("profile") ? (
-            <IoListCircleOutline
-              className=" text-[40px]"
-              onClick={handleRoute}
-            />
+              <div className="inline-flex">
+                <button
+                    className=" mr-2 bg-primary-500 text-white-500 font-bold py-2 px-4 rounded-full"
+                    onClick={ () => { navigate("/pack") }}>
+                  Add Points
+                </button>
+                <IoListCircleOutline
+                  className=" text-[40px]"
+                  onClick={handleRoute}
+                />
+              </div>
+          ) : location.pathname.includes("pack") ? (
+              <div className="inline-flex">
+              <PiUserCircle className=" mr-2 text-[40px]" onClick={ () => {
+                navigate("/profile")
+              }} />
+              <IoListCircleOutline
+                  className=" text-[40px]"
+                  onClick={ () => {
+                    navigate("/")
+                  }}
+              />
+              </div>
           ) : (
-            <PiUserCircle className=" text-[40px]" onClick={handleRoute} />
+              <div className="inline-flex">
+                <button
+                    className=" mr-2 bg-primary-500 text-white-500 font-bold py-2 px-4 rounded-full"
+                    onClick={ () => { navigate("/pack") }}>
+                  Add Points
+                </button>
+                <PiUserCircle className=" text-[40px]" onClick={handleRoute} />
+              </div>
           )}
           <a
             href="#/home"

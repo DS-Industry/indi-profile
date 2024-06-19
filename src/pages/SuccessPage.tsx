@@ -19,7 +19,7 @@ export default function SuccessPage() {
         <div className=" w-full flex flex-col justify-center items-center">
           <MainButton
             title={"NICE!"}
-            handleClick={() => navigate("/")}
+            handleClick={() => navigate("/profile")}
             value={""}
             additionalStyles={" bg-primary-500 text-white-500 w-full"}
           />

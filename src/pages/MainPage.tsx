@@ -74,23 +74,27 @@ export default function MainPage() {
           />
         </div>
       ) : (
-        <div className=" my-[30px] min-w-full flex flex-grow justify-center items-center sm:flex-col xs:flex-col md:flex-row gap-5">
-          {plans &&
-            plans
-              .filter((item) => item.name !== user?.subscribe?.name)
-                .filter(item => !item.name.startsWith('test'))
-              .map((item, index) => (
-                <SubscriptionSailCard
-                  key={index}
-                  name={item.name}
-                  fullPrice={item.fullPrice}
-                  price={item.amount / 100}
-                  id={item.id}
-                  user={user}
-                  count={12}
-                />
-              ))}
-        </div>
+          <div>
+            <div className=" my-[30px] min-w-full flex flex-grow justify-center items-center sm:flex-col xs:flex-col md:flex-row gap-5">
+                <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Subscriptions</h1>
+            </div>
+            <div className=" my-[30px] min-w-full flex flex-grow justify-center items-center sm:flex-col xs:flex-col md:flex-row gap-5">
+              {plans &&
+                plans
+                    .filter((item) => item.name !== user?.subscribe?.name && item.name !== 'Optimum' && !item.name.startsWith('test'))
+                  .map((item, index) => (
+                    <SubscriptionSailCard
+                      key={index}
+                      name={item.name}
+                      fullPrice={item.fullPrice}
+                      price={item.amount / 100}
+                      id={item.id}
+                      user={user}
+                      count={12}
+                    />
+                  ))}
+            </div>
+          </div>
       )}
       {isError && (
         <div className=" absolute top-2 flex w-auto justify-start items-center z-40 ">

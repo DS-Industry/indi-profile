@@ -26,7 +26,7 @@ const Modal = ({
     const portalElement = document.getElementById("root");
     if (portalElement){
     return ReactDOM.createPortal(
-        <div className="modal" onClick={onClose}>
+        <div className="modal">
             <div className="modal__content" onClick={(event) => event.stopPropagation()}>
                 <div className="modal__header">
                     <div className="modal__title">{title}</div>
