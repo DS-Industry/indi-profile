@@ -5,6 +5,7 @@ export type User = {
     phone: string;
     email: string | null;
     birthday: Date | null;
+    invitedFriends?: string[];
     cards: {
       number: string;
       unqNumber: string;
@@ -20,6 +21,7 @@ export type User = {
     refreshTokenExp: Date;
   };
   subscribe: Subscribe;
+  invitedCode: string;
 } | null;
 
 export type Subscribe = {

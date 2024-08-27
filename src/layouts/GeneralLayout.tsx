@@ -33,14 +33,14 @@ export default function GeneralLayout({
         </div>
         <div className="flex items-center gap-5">
           {location.pathname.includes("profile") ? (
-              <div className="inline-flex">
+              <div className="flex items-center justify-end">
                 <button
                     className=" mr-2 bg-primary-500 text-white-500 font-bold py-2 px-4 rounded-full"
                     onClick={ () => { navigate("/pack") }}>
                   Add Points
                 </button>
                 <IoListCircleOutline
-                  className=" text-[40px]"
+                  className=" text-[40px] "
                   onClick={handleRoute}
                 />
               </div>

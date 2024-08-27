@@ -248,7 +248,7 @@ export default function LoginPage() {
           Sign Up!
         </span>
       </p>
-      <Modal title="Change the password" active={showModalPhone} onClose={closeModalPhone} onSubmit={changePasswordOtp}>
+      <Modal title="Change the password" active={showModalPhone} info={false} onClose={closeModalPhone} onSubmit={changePasswordOtp} onSubmitName={'Confirm'}>
         <div>Specify the phone number that was specified when creating the account.</div>
         <OtpInput
             type={"phone"}
@@ -262,7 +262,7 @@ export default function LoginPage() {
             validationMessage="Phone must start on +91 and be no less than 13 digits"
         />
       </Modal>
-      <Modal title="Change the password" active={showModalPassword} onClose={closeModalPassword} onSubmit={changePassword}>
+      <Modal title="Change the password" active={showModalPassword} info={false} onClose={closeModalPassword} onSubmit={changePassword} onSubmitName={'Confirm'}>
         <div>A verification code has been sent to the email address specified during registration. Specify it for a successful password change.</div>
         <OtpInput
             type={"password"}

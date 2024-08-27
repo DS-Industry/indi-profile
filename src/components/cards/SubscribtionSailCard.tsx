@@ -87,7 +87,8 @@ export default function SubscriptionSailCard({
                 const subId = responseCreate.data.data.subId;
                 console.log(subId);
                 const options = {
-                    "key": "rzp_live_28uKBwwEso0CLe",
+                    //"key": "rzp_live_28uKBwwEso0CLe",
+                    "key": "rzp_test_RJR5WRZOHUdxug",
                     "subscription_id": `${subId}`,
                     "name": "DSMoy-ka",
                     "description": "Monthly Car Wash Plan",
@@ -204,7 +205,7 @@ export default function SubscriptionSailCard({
                     " bg-primary-500 text-white-500 font-inter-light mt-3 min-w-full"
                 }
             />
-            <Modal title="Changing your subscription" active={showModal} onClose={closeModal} onSubmit={handleUpgradePlan}>
+            <Modal title="Changing your subscription" active={showModal} info={false} onClose={closeModal} onSubmit={handleUpgradePlan} onSubmitName={'Confirm'}>
                 <div>You already have a subscription. Are you sure you want to start a new one?</div>
                 <div>Information about the current subscription can be found in your personal account.</div>
                 <div>In case of confirmation, the remaining points will be deducted and new ones will be credited, in accordance with the selected tariff plan.</div>

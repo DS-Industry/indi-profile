@@ -20,7 +20,9 @@ export default function ProfilePage() {
   const [isError, setIsError] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState<string>("");
   const [showModalStop, setShowModalStop] = useState<boolean>(false);
+  const [showModalReferral, setShowModalReferral] = useState<boolean>(false);
   const [showModalChange, setShowModalChange] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [userData, setUserData] = useState<{
     newPassword: string;
     checkNewPassword: string;
@@ -37,8 +39,16 @@ export default function ProfilePage() {
     setShowModalStop(true);
   };
 
+  const openModalReferral = () => {
+    setShowModalReferral(true);
+  };
+
   const closeModalStop = () => {
     setShowModalStop(false);
+  }
+
+  const closeModalReferral = () => {
+    setShowModalReferral(false);
   }
 
   const openModalChange = () => {
@@ -53,6 +63,19 @@ export default function ProfilePage() {
     clearUser();
     navigate("/auth/signin");
   };
+
+  const handleCopy = () => {
+    const contactDetailsElement = document.getElementById('contact-details');
+    if (contactDetailsElement) {
+      const textWithBreaks = contactDetailsElement.innerHTML.replace(/<br>/g, '\n');
+      navigator.clipboard.writeText(textWithBreaks);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 1500);
+    }
+  };
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevVal) => {
@@ -165,7 +188,8 @@ export default function ProfilePage() {
     const subId = user?.subscribe?.subscribeId || "";
 
     const options = {
-      "key": "rzp_live_28uKBwwEso0CLe",
+      //"key": "rzp_live_28uKBwwEso0CLe",
+      "key": "rzp_test_RJR5WRZOHUdxug",
       "subscription_id": `${subId}`,
       "name": "DSMoy-ka",
       "description": "Monthly Car Wash Plan",
@@ -213,11 +237,17 @@ export default function ProfilePage() {
               Authorization: `Bearer ${user.tokens.accessToken}`,
             },
           });
+          const invitedCode = await api.get("account/invited", {
+            headers: {
+              Authorization: `Bearer ${user.tokens.accessToken}`,
+            },
+          });
           console.log(resrClient.data);
           const updatedUser = {
             ...user,
             subscribe: resp.data.data,
             client: resrClient.data.data,
+            invitedCode: invitedCode.data.data.invitedCode,
           };
 
           setUser(updatedUser);
@@ -368,8 +398,15 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-          <div className=" flex md:justify-center items-center flex-col min-w-full">
-            <div className=" font-inter-semibold flex flex-col justify-evenly min-h-[90px] flex-wrap rounded-xl min-w-[200px] max-w-[500px] w-full mt-5 p-3 bg-white-700">
+
+
+          <div className=" mt-5 flex md:flex-row sm:flex-row xs:flex-col gap-[20px] w-full justify-center">
+
+            <div
+                className={` w-full ${
+                    user?.subscribe?.status === "active" ? "md:max-w-[300px]" : "md:max-w-[500px]"
+                } font-inter-semibold sm:max-w-[340px] xs:max-w-full bg-white-700 p-3 rounded-lg`}
+            >
               <div className=" w-full flex flex-row justify-between">
                 <div className=" w-full flex flex-col justify-start mb-3">
                   <p className=" text-primary-500 md:text-2xl text-2xl">
@@ -378,6 +415,7 @@ export default function ProfilePage() {
                   <p className=" text-white-400 text-xs">name</p>
                 </div>
               </div>
+
               <div className=" w-full flex sm:flex-row justify-between">
                 <p>Phone</p>
                 <p className=" text-primary-500 bg-">{user?.client.phone}</p>
@@ -389,7 +427,58 @@ export default function ProfilePage() {
                 </p>
               </div>
             </div>
+
+            {user?.subscribe?.status === "active" && (
+                <div className=" w-full md:max-w-[180px] sm:max-w-[140px] xs:max-w-full bg-white-700 p-3 rounded-lg">
+                  <p className="font-inter-semibold text-center">
+                    Invite a friend!
+                  </p>
+                  <div className='text-primary-500'>
+                    <p>Your friends:</p>
+                    <ol className="list-decimal pl-6">
+                      {user?.client.invitedFriends?.map((friendName, index) => (
+                          <li key={index}>{friendName}</li>
+                      ))}
+                    </ol>
+                  </div>
+                  <MainButton
+                      title={"To learn more"}
+                      handleClick={openModalReferral}
+                      value={""}
+                      additionalStyles={
+                        "bg-green-500  text-white-500 mt-5 hover:bg-green-600 transition-all duration-300 max-w-[500px]"
+                      }
+                  />
+                </div>
+            )}
+
           </div>
+
+          {/*
+            <div className=" flex md:justify-center items-center flex-col min-w-full">
+              <div className=" font-inter-semibold flex flex-col justify-evenly min-h-[90px] flex-wrap rounded-xl min-w-[200px] max-w-[500px] w-full mt-5 p-3 bg-white-700">
+                <div className=" w-full flex flex-row justify-between">
+                  <div className=" w-full flex flex-col justify-start mb-3">
+                    <p className=" text-primary-500 md:text-2xl text-2xl">
+                      {user?.client.name}
+                    </p>
+                    <p className=" text-white-400 text-xs">name</p>
+                  </div>
+                </div>
+                <div className=" w-full flex sm:flex-row justify-between">
+                  <p>Phone</p>
+                  <p className=" text-primary-500 bg-">{user?.client.phone}</p>
+                </div>
+                <div className=" w-full flex flex-row justify-between">
+                  <p>Email</p>
+                  <p className=" text-primary-500 bg-">
+                    {user?.client.email ? user?.client.email : "-"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          */}
+
           <div className=" flex flex-grow flex-col items-center">
             <MainButton
               title={"Upgrade plan"}
@@ -409,9 +498,88 @@ export default function ProfilePage() {
                 }
               />
             )}
-            <Modal title="Cancellation of subscription" active={showModalStop} onClose={closeModalStop} onSubmit={cancellationSubscribe}>
+            <Modal title="Cancellation of subscription" active={showModalStop} info={false} onClose={closeModalStop} onSubmit={cancellationSubscribe} onSubmitName={'Confirm'}>
               <div>Are you sure you want to cancel your subscription?</div>
               <div>In case of cancellation, the remaining points will be withdrawn automatically at the end of the last active billing period.</div>
+            </Modal>
+
+            <Modal title="Invite a friend and get a bonus" active={showModalReferral} info={true} onClose={closeModalReferral} onSubmit={cancellationSubscribe} onSubmitName={'Copy!'}>
+
+              <div>
+
+                <address
+                    className="relative bg-gray-50 dark:bg-gray-700 dark:border-gray-600 p-4 rounded-lg border border-gray-200 not-italic grid grid-cols-2"
+                >
+                  <div
+                      id="contact-details"
+                      className="space-y-2 text-gray-900 dark:text-white font-medium leading-loose"
+                  >
+                    1) Инструкция; <br/>
+                    2) Инструкция; <br/>
+                    3) Инструкция; <br/>
+                    4) Инструкция. <br/>
+                    Код друга: {user?.invitedCode}
+                  </div>
+                  <button
+                      data-copy-to-clipboard-target="contact-details"
+                      data-copy-to-clipboard-content-type="textContent"
+                      data-tooltip-target="tooltip-contact-details"
+                      onClick={handleCopy}
+                      className="absolute end-2 bottom-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg p-2 inline-flex items-center justify-center"
+                  >
+          <span id="default-icon-contact-details">
+            <svg
+                className="w-3.5 h-3.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 18 20"
+            >
+              <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+            </svg>
+          </span>
+                    <span
+                        id="success-icon-contact-details"
+                        className={isCopied ? "" : "hidden"}
+                        inline-flex
+                        items-center
+                    >
+            <svg
+                className="w-3.5 h-3.5 text-blue-700 dark:text-blue-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 16 12"
+            >
+              <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 5.917 5.724 10.5 15 1.5"
+              />
+            </svg>
+          </span>
+                  </button>
+                  <div
+                      id="tooltip-contact-details"
+                      role="tooltip"
+                      className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                  >
+          <span id="default-tooltip-message-contact-details">
+            Copy to clipboard
+          </span>
+                    <span
+                        id="success-tooltip-message-contact-details"
+                        className={isCopied ? "" : "hidden"}
+                    >
+            Copied!
+          </span>
+                    <div className="tooltip-arrow" data-popper-arrow></div>
+                  </div>
+                </address>
+              </div>
+
             </Modal>
 
             <MainButton
@@ -422,7 +590,7 @@ export default function ProfilePage() {
                   "bg-white-700 hover:bg-white-400 hover:text-white-500 text-white-900 mt-5 transition-all duration-300 mb-5 max-w-[500px]"
                 }
             />
-            <Modal title="Change the password" active={showModalChange} onClose={closeModalChange} onSubmit={changePassword}>
+            <Modal title="Change the password" active={showModalChange} info={false} onClose={closeModalChange} onSubmit={changePassword} onSubmitName={'Confirm'}>
               <div>A verification code has been sent to the email address specified during registration. Specify it for a successful password change.</div>
               <OtpInput
                   type={"password"}

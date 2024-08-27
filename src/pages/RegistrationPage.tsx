@@ -29,6 +29,7 @@ export default function RegistrationPage() {
     password: string;
     checkPassword: string;
     otp: string;
+    invitedCode: string;
   }>({
     phone: "",
     email: "",
@@ -36,6 +37,7 @@ export default function RegistrationPage() {
     password: "",
     checkPassword: "",
     otp: "",
+    invitedCode: "",
   });
 
 
@@ -95,6 +97,7 @@ export default function RegistrationPage() {
           client: data.client,
           tokens: data.tokens,
           subscribe: null,
+          invitedCode: "",
         };
 
         setUser(user);
@@ -210,6 +213,15 @@ export default function RegistrationPage() {
           handleValidation={setIsValid}
           validationMessage="This field should be the same as a password"
         />
+        <AuthInput
+            type={"invitedCode"}
+            placeholder={"write invitation code"}
+            icon={Mail}
+            name={"invitedCode"}
+            value={userData.invitedCode}
+            handleChange={handleChange}
+            required={false}
+        />
         <MainButton
           title={
             !isLoading ? (
@@ -238,7 +250,7 @@ export default function RegistrationPage() {
           Log in!
         </span>
         </p>
-        <Modal title="Email Confirmation" active={showModal} onClose={closeModal} onSubmit={handleClick}>
+        <Modal title="Email Confirmation" active={showModal} info={false} onClose={closeModal} onSubmit={handleClick} onSubmitName={'Confirm'}>
           <div>By email <b>{userData.email}</b> a letter with a verification code has been sent. To complete the registration, enter it</div>
           <OtpInput
               type={"otp"}
