@@ -19,7 +19,7 @@ export type User = {
     refreshToken: string;
     refreshTokenExp: Date;
   };
-  subscribe: Subscribe;
+  subscribe?: Subscribe;
 } | null;
 
 export type Subscribe = {

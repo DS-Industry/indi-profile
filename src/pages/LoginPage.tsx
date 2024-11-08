@@ -9,7 +9,7 @@ import { useUser } from "../context/UserProvider";
 import api from "../api";
 import axios, { AxiosResponse } from "axios";
 import MainLoader from "../components/loaders/MainLoader";
-import { Subscribe, User } from "../types";
+import {  User } from "../types";
 import Toast from "../components/toast/Toast";
 import Success from "../components/toast/Success.tsx";
 import OtpInput from "../components/inputs/OtpInput.tsx";
@@ -73,7 +73,7 @@ export default function LoginPage() {
         }: AxiosResponse<{ data: { client: any; tokens: any; type: string } }> =
           await api.post("auth/login", { ...userData });
 
-        const {
+        /*const {
           data: { data: subscribe },
         }: AxiosResponse<{ data: Subscribe }> = await api.get(
           "subscribe/subInfo",
@@ -82,20 +82,20 @@ export default function LoginPage() {
               Authorization: `Bearer ${tokens.accessToken}`,
             },
           }
-        );
+        );*/
 
         const user: User = {
           client: client,
           tokens: tokens,
-          subscribe: subscribe,
+          //subscribe: subscribe,
         };
         setUser(user);
         setIsLoading(false);
-        if (!subscribe) {
+        /*if (!subscribe) {
           navigate("/");
-        } else {
+        } else {*/
           navigate("/profile");
-        }
+        //}
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setIsError(
@@ -239,7 +239,7 @@ export default function LoginPage() {
           Recover!
         </span>
       </p>
-      <p className=" font-inter-light text-white-900 text-sm text-center mt-2 mb-4">
+      <p className=" font-inter-light text-white-900 text-sm text-center mt-2">
         Don’t have an account?
         <span
           onClick={() => navigate("/auth/signup")}
@@ -247,6 +247,14 @@ export default function LoginPage() {
         >
           Sign Up!
         </span>
+      </p>
+      <p className=" font-inter-light text-white-900 text-sm text-center mt-2 mb-4">
+        Any problems? Contact us
+        <p
+            className=" text-primary-500"
+        >
+          +91 9110943649
+        </p>
       </p>
       <Modal title="Change the password" active={showModalPhone} onClose={closeModalPhone} onSubmit={changePasswordOtp}>
         <div>Specify the phone number that was specified when creating the account.</div>

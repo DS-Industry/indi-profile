@@ -27,7 +27,7 @@ export default function UnauthorizedLayout({ children }: { children: React.React
             <header className="bg-white">
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
-                        <div className="flex-1 md:flex md:items-center md:gap-12">
+                        <div className="flex-1 md:flex md:items-center md:gap-2">
                             <a className="block text-teal-600" href="#/home">
                                 <span className="sr-only">Home</span>
                                 <img
@@ -38,6 +38,9 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                     width="190"
                                 />
                             </a>
+                            <p className="text-3xl font-extrabold sm:text-2xl text-blue-500 mb-1">
+                                +91 9110943649
+                            </p>
                         </div>
 
                         <div className="md:flex md:items-center md:gap-12">
@@ -121,7 +124,7 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                 width="190"
                             />
 
-                            <p className="text-xs text-gray-500 pt-6 pl-2">&copy; All Rights Reserved. Powered by DSMOYKA PRIVATE LIMITED</p>
+                            <p className="text-xs text-gray-500 pt-6 pl-2">&copy; All Rights Reserved. Powered by ZIXDO TECHNOLOGIES PRIVATE LIMITED</p>
                         </div>
                         <div></div>
                         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-2">

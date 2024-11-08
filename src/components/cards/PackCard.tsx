@@ -69,7 +69,7 @@ export default function PackCard({ id, name, sumPoint, sumMoney, description, us
 
                 console.log(orderId)
                 const options = {
-                    "key": "rzp_live_28uKBwwEso0CLe", // Enter the Key ID generated from the Dashboard
+                    "key": "rzp_live_dVUwzpkbXg2YDn", // Enter the Key ID generated from the Dashboard
                     // key_id: `${import.meta.env.VITE_RAZORPAY_KEY_ID}`,
                     "amount": sumMoney * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                     "currency": "INR",

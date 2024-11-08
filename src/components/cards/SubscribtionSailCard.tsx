@@ -87,7 +87,7 @@ export default function SubscriptionSailCard({
                 const subId = responseCreate.data.data.subId;
                 console.log(subId);
                 const options = {
-                    "key": "rzp_live_28uKBwwEso0CLe",
+                    "key": "rzp_live_dVUwzpkbXg2YDn",
                     "subscription_id": `${subId}`,
                     "name": "DSMoy-ka",
                     "description": "Monthly Car Wash Plan",

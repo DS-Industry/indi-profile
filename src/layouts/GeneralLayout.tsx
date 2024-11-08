@@ -90,7 +90,7 @@ export default function GeneralLayout({
           </div>
 
           <p className="mx-auto mt-6 max-w-md text-center leading-relaxed font-thin">
-            © All Rights Reserved. Powered by DSMOYKA PRIVATE LIMITED
+            © All Rights Reserved. Powered by ZIXDO TECHNOLOGIES PRIVATE LIMITED
           </p>
         </div>
       </footer>

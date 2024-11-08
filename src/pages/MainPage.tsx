@@ -7,6 +7,7 @@ import MainLoader from "../components/loaders/MainLoader";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/toast/Toast";
 import SubscriptionSailCard from "../components/cards/SubscribtionSailCard.tsx";
+import Modal from "../components/modal/CancellationSubscription.tsx";
 
 interface Plan {
   id: string;
@@ -21,6 +22,11 @@ export default function MainPage() {
   const [plans, setPlans] = useState<Plan[] | []>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<string>("");
+  const [showModalBaner, setShowModalBaner] = useState<boolean>(false);
+
+  const closeModalBaner = () => {
+    setShowModalBaner(false);
+  }
 
   useEffect(() => {
     const user = getUser();
@@ -29,6 +35,7 @@ export default function MainPage() {
     }
     const getPlanListAsync = async () => {
       try {
+        setShowModalBaner(true);
         const {
           data: { data: plans },
         }: AxiosResponse<{ data: Plan[] | [] }> = await api.get(
@@ -94,6 +101,13 @@ export default function MainPage() {
                     />
                   ))}
             </div>
+
+            <Modal title="ATTENTION!" active={showModalBaner} onClose={closeModalBaner} onSubmit={closeModalBaner}>
+              <div>Due to technical problems, the subscription function has been temporarily suspended.</div>
+              <div>Buying a new subscription and debiting funds for the old one are disabled until troubleshooting. All your subscription points remain active.</div>
+              <div>You can also use additional minute packages on our website.</div>
+            </Modal>
+
           </div>
       )}
       {isError && (

@@ -165,7 +165,7 @@ export default function ProfilePage() {
     const subId = user?.subscribe?.subscribeId || "";
 
     const options = {
-      "key": "rzp_live_28uKBwwEso0CLe",
+      "key": "rzp_live_dVUwzpkbXg2YDn",
       "subscription_id": `${subId}`,
       "name": "DSMoy-ka",
       "description": "Monthly Car Wash Plan",
@@ -203,11 +203,11 @@ export default function ProfilePage() {
     } else {
       const getSubscribeAsync = async () => {
         try {
-          const resp = await api.get("subscribe/subInfo", {
+          /*const resp = await api.get("subscribe/subInfo", {
             headers: {
               Authorization: `Bearer ${user.tokens.accessToken}`,
             },
-          });
+          });*/
           const resrClient = await api.get("account/me", {
             headers: {
               Authorization: `Bearer ${user.tokens.accessToken}`,
@@ -216,7 +216,7 @@ export default function ProfilePage() {
           console.log(resrClient.data);
           const updatedUser = {
             ...user,
-            subscribe: resp.data.data,
+            //subscribe: resp.data.data,
             client: resrClient.data.data,
           };
 
