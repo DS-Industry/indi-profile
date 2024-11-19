@@ -24,7 +24,7 @@ export default function ErrorPage() {
           </p>
           <MainButton
             title={"TRY AGAIN"}
-            handleClick={() => navigate("/")}
+            handleClick={() => navigate("/#/home")}
             value={""}
             additionalStyles={" bg-primary-500 text-white-500 w-full"}
           />

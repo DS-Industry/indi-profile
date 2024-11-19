@@ -31,7 +31,7 @@ export default function MainPage() {
   useEffect(() => {
     const user = getUser();
     if (!user) {
-      navigate("/home");
+      navigate("/");
     }
     const getPlanListAsync = async () => {
       try {

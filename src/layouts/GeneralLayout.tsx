@@ -15,7 +15,7 @@ export default function GeneralLayout({
   const navigate = useNavigate();
   const handleRoute = () => {
     if (location.pathname.includes("profile")) {
-      navigate("/");
+      navigate("/#/home");
     } else {
       navigate("/profile");
     }
@@ -39,22 +39,22 @@ export default function GeneralLayout({
                     onClick={ () => { navigate("/pack") }}>
                   Add Points
                 </button>
-                <IoListCircleOutline
+                {/*<IoListCircleOutline
                   className=" text-[40px]"
                   onClick={handleRoute}
-                />
+                />*/}
               </div>
           ) : location.pathname.includes("pack") ? (
               <div className="inline-flex">
               <PiUserCircle className=" mr-2 text-[40px]" onClick={ () => {
                 navigate("/profile")
               }} />
-              <IoListCircleOutline
-                  className=" text-[40px]"
-                  onClick={ () => {
-                    navigate("/")
-                  }}
-              />
+                {/*<IoListCircleOutline
+                    className=" text-[40px]"
+                    onClick={() => {
+                      navigate("/#/home")
+                    }}
+                />*/}
               </div>
           ) : (
               <div className="inline-flex">
@@ -67,7 +67,7 @@ export default function GeneralLayout({
               </div>
           )}
           <a
-            href="#/home"
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
           >

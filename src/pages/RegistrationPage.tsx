@@ -29,6 +29,7 @@ export default function RegistrationPage() {
     password: string;
     checkPassword: string;
     otp: string;
+    invitedCode: string;
   }>({
     phone: "",
     email: "",
@@ -36,6 +37,7 @@ export default function RegistrationPage() {
     password: "",
     checkPassword: "",
     otp: "",
+    invitedCode: "",
   });
 
 
@@ -95,11 +97,12 @@ export default function RegistrationPage() {
           client: data.client,
           tokens: data.tokens,
           subscribe: null,
+          invitedCode: "",
         };
 
         setUser(user);
         setIsLoading(false);
-        navigate("/");
+        navigate("/profile");
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setIsError(
@@ -182,7 +185,7 @@ export default function RegistrationPage() {
             value={userData.uniqNomer}
             handleChange={handleChange}
             required={true}
-            regexp={/.{10,}/}
+            regexp={/^\d{10}$/}
             handleValidation={setIsValid}
             validationMessage="The cw card number must contain 10 digits"
         />
@@ -209,6 +212,18 @@ export default function RegistrationPage() {
           regexp={new RegExp(`${userData.password}`)}
           handleValidation={setIsValid}
           validationMessage="This field should be the same as a password"
+        />
+        <AuthInput
+            type={"invitedCode"}
+            placeholder={"write invitation code"}
+            icon={Mail}
+            name={"invitedCode"}
+            value={userData.invitedCode}
+            handleChange={handleChange}
+            required={false}
+            regexp={/^\d{6}$/}
+            handleValidation={setIsValid}
+            validationMessage="The invitation code must contain 6 digits"
         />
         <MainButton
           title={

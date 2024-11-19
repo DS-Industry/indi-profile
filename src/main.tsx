@@ -22,7 +22,7 @@ import PackPage from "./pages/PackPage.tsx";
 
 const router = createHashRouter([
   {
-    path: "/",
+    path: "/home",
     element: <MainPage />,
   },
   {
@@ -46,7 +46,7 @@ const router = createHashRouter([
     element: <ErrorPage />,
   },
   {
-    path: '/home',
+    path: '/',
     element: <Landing />
   },
   {

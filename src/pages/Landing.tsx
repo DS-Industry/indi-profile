@@ -23,7 +23,7 @@ export default function Landing() {
             section.scrollIntoView({ behavior: 'smooth' });
         } else {
             // Если элемент не найден на текущей странице, переход на другую страницу
-            window.location.href = `#/home?scrollTo=${sectionId}`;
+            window.location.href = `/?scrollTo=${sectionId}`;
         }
     }
 
@@ -57,7 +57,7 @@ export default function Landing() {
                                 </a>
 
                                 <a
-                                    href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
+                                    href="/" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
                                     className="block w-full rounded border-white-500 border-2 px-12 py-3 text-sm font-medium text-white-500 shadow hover:bg-white-500/95 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
                                 >
                                     Services

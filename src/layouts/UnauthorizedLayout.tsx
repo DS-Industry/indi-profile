@@ -11,7 +11,7 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                 section.scrollIntoView({behavior: 'smooth'});
             } else {
                 // Если элемент не найден на текущей странице, переход на другую страницу
-                window.location.href = `#/home?scrollTo=${sectionId}`;
+                window.location.href = `/?scrollTo=${sectionId}`;
             }
     }
 
@@ -28,7 +28,7 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex-1 md:flex md:items-center md:gap-2">
-                            <a className="block text-teal-600" href="#/home">
+                            <a className="block text-teal-600" href="/">
                                 <span className="sr-only">Home</span>
                                 <img
                                     src={Logo}
@@ -48,13 +48,13 @@ export default function UnauthorizedLayout({ children }: { children: React.React
                                 <ul className="flex items-center gap-6 text-sm">
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75"
-                                           href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+                                           href="/" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
                                         > About </a>
                                     </li>
 
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75"
-                                           href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
+                                           href="/" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
                                         > Services </a>
                                     </li>
 
@@ -133,16 +133,16 @@ export default function UnauthorizedLayout({ children }: { children: React.React
 
                                 <ul className="mt-6 space-y-4 text-sm">
                                     <li>
-                                        <a href="#/home" className="text-gray-700 transition hover:opacity-75"> Home page </a>
+                                        <a href="/" className="text-gray-700 transition hover:opacity-75"> Home page </a>
                                     </li>
 
                                     <li>
-                                        <a href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+                                        <a href="/" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
                                            className="text-gray-700 transition hover:opacity-75"> About </a>
                                     </li>
 
                                     <li>
-                                        <a href="#/home" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
+                                        <a href="/" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }}
                                            className="text-gray-700 transition hover:opacity-75"> Services </a>
                                     </li>
 
